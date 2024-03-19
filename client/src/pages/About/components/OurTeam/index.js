@@ -37,7 +37,7 @@ function OurTeam({ teamData }) {
                     <h1 className={cx('title')}>our teams</h1>
                     {/* slider */}
                         <SliderCustom  slShow={2} countScroll={2} dots={true} customResponsive={customResponsive} customCss={cx('custom-css')} >
-                            {teamData.map((e, i) => {
+                            {teamData?.map((e, i) => {
                                 return (
                                     <div key={i} className={cx('ourteam-item')}>
                                         <div className={cx('icon-social')}>

@@ -52,7 +52,7 @@ function LookBook() {
                 <Row>
                     <Col style={{ padding: 0 }}>
                         <SliderCustom customCss={cx('custom-css')} customResponsive={customResponsive}>
-                            {lookBooks.map((e, i) => {
+                            {lookBooks?.map((e, i) => {
                                 return (
                                     <div key={i} className={cx('img-popover')}>
                                         <Image style={{ width: '100%', height: '100%' }} alt="" src={e.lookBookImg}></Image>
