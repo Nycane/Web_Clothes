@@ -2,7 +2,7 @@ import axios from 'axios'
 const env = process.env.NODE_ENV;
 const baseUrl= env==="development" ? process.env.REACT_APP_API_LOCAL:process.env.REACT_APP_API_URL;
 const axiosClient = axios.create({
-    baseURL: "https://web-clothes.onrender.com/api/v1",
+    baseURL: baseUrl,
     headers: {
       'Content-Type': 'application/json',
     },
