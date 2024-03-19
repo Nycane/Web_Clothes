@@ -17,10 +17,7 @@ const app = express();
 console.log(process.env.NODE_ENV)
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "development"
-        ? process.env.CLIENT_URL
-        : process.env.PRODUCTION_URL, // replace with your client app URL
+    origin:process.env.PRODUCTION_URL, // replace with your client app URL
     credentials: true,
   })
 );
