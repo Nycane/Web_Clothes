@@ -31,6 +31,6 @@ passport.initialize();
 
 initRoutes(app);
 const port = process.env.PORT || 3000;
-app.listen(process.env.NODE_ENV === "production"?10000:port, () => {
+app.listen(process.env.NODE_ENV === "production"?10000:port,() => {
   console.log("connect localhost", process.env.PORT);
 });
