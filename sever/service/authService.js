@@ -101,11 +101,11 @@ class authService {
   saveDataInCookie(res, key, value) {
     if (value) {
       res.cookie(key, value, {
-        httpOnly: false,
+        httpOnly: true,
         path: "/",
         maxAge: 30 * 24 * 60 * 60 * 1000,
         secure: false,
-        samSite: "None",
+        samSite: None,
       });
     } else {
       console.error("Invalid data");
