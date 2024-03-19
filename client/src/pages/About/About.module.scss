@@ -72,12 +72,14 @@
     }
 }
 // custom css banner 2
+.custom-banner{
+    padding: 0px 15px;
+}
 .custom-content{
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     align-content: center;
-    padding: 0px 15px;
     height: 100%;
 }
 .custom-title {
@@ -94,9 +96,7 @@
     font-weight: 500;
     line-height: 35px;
 }
-.custom-img {
-    padding:0px 15px;
-}
+
 
 @include larger-mobile() {
     .icon-text-box {

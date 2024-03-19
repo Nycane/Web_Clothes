@@ -129,6 +129,9 @@
 @include larger-mobile(){
     .form-signin{
         padding: 15px;
+        & .btn-next-register,.btn-signin{
+            padding: 14px 18px ;
+        }
     }
 }
 @include medium-mobile(){

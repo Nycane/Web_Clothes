@@ -120,16 +120,18 @@ function About() {
             <OurTeam teamData={teamMembers}></OurTeam>
 
             {/* ----------------------- */}
-            <BannerCustom
-                customImg = {cx('custom-img')}
-                customText = {cx('custom-text')}
-                customTitle = {cx('custom-title')}
-                customContent = {cx('custom-content')}
-                right
-                img={ABOUT_IMG.BANNER_CUSTOM.imgSrc}
-                title={ABOUT_IMG.BANNER_CUSTOM.title}
-                text={ABOUT_IMG.BANNER_CUSTOM.text}
-            ></BannerCustom>
+          <div className={cx('custom-banner')}>
+                <BannerCustom
+                    customImg = {cx('custom-img')}
+                    customText = {cx('custom-text')}
+                    customTitle = {cx('custom-title')}
+                    customContent = {cx('custom-content')}
+                    right
+                    img={ABOUT_IMG.BANNER_CUSTOM.imgSrc}
+                    title={ABOUT_IMG.BANNER_CUSTOM.title}
+                    text={ABOUT_IMG.BANNER_CUSTOM.text}
+                ></BannerCustom>
+          </div>
             {/* ----------------------- */}
 
             {/* ------------------------- */}
