@@ -1,7 +1,7 @@
 const express = require("express");
 const initRoutes = require("./routes");
 const cors = require("cors");
-require("dotenv").config();
+// require("dotenv").config();
 const passport = require("passport");
 // const cookieParser = require('cookie-parser')
 const cookieParser = require("cookie-parser");
@@ -22,8 +22,8 @@ app.use(
         ? process.env.CLIENT_URL
         : process.env.PRODUCTION_URL, // replace with your client app URL
     credentials: true,
-    methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    // methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
+    // allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use(cookieParser());

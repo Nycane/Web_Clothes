@@ -14,6 +14,7 @@ async function getRefreshToken(dispatch) {
             process.env.NODE_ENV === 'development'
                 ? 'http://localhost:8000/api/v1/user/refreshtoken'
                 : `${process.env.REACT_APP_API_URL}/user/refreshtoken`,
+            {},
             {
                 headers: {
                     'Content-Type': 'application/json',
