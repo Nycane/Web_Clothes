@@ -45,8 +45,8 @@ function Login({ setToggle, toggle, scrollPosition }) {
     function handleRedirectGoogle() {
         const url =
             process.env.NODE_ENV === 'development'
-                ? 'http://localhost:8000/api/v1/social/auth/google/callback'
-                : 'https://web-clothes.onrender.com/api/v1/social/auth/google/callback';
+                ? 'http://localhost:8000/api/v1/social/auth/google'
+                : 'https://web-clothes.onrender.com/api/v1/social/auth/google';
         console.log(url);
         window.open(url, '_self');
         setValue('email', '');
@@ -55,8 +55,8 @@ function Login({ setToggle, toggle, scrollPosition }) {
     function handleRedirectFacebook() {
         const url =
             process.env.NODE_ENV === 'development'
-                ? 'http://localhost:8000/api/v1/social/auth/facebook/callback'
-                : 'https://web-clothes.onrender.com/api/v1/social/auth/facebook/callback';
+                ? 'http://localhost:8000/api/v1/social/auth/facebook'
+                : 'https://web-clothes.onrender.com/api/v1/social/auth/facebook';
         window.open(url, '_self');
         setValue('email', '');
         setValue('password', '');

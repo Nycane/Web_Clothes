@@ -10,10 +10,10 @@ router.get(
 
 router.get(
   "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "http://localhost:3000/login",session:false}),
+  passport.authenticate("google", { failureRedirect: "https://mafoill.netlify.app/login",session:false}),
   async function (req, res) {
     // Successful authentication, redirect home.
-    res.redirect("http://localhost:3000/loginSocial/" + req?.user?.id+"&"+req?.user?.code);
+    res.redirect("https://mafoill.netlify.app/loginSocial/" + req?.user?.id+"&"+req?.user?.code);
 
   }
 );
@@ -33,15 +33,5 @@ router.get('/auth/facebook/callback',
       console.log(error)
     }
   });
-// router.get('/auth/facebook/callback', (req, res, next) => {
-//   passport.authenticate('facebook', (err, profile) => {
-//     console.log("error >>>",err)
-//       req.user = profile
-//       next()
-//   })(req, res, next)
-// }, (req, res) => {
-//   res.redirect("http://localhost:3000/loginSocial/" + req?.user?.id+"&"+req?.user?.code);
-// })
-
 router.post("/loginSocial", authSocialController.loginSuccess);
 module.exports = router;

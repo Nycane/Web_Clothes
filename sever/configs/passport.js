@@ -8,7 +8,9 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
 
 // Google strategy
-console.log(process.env.NODE_ENV)
+console.log(process.env.NODE_ENV);
+console.log(process.env.GOOGLE_REDIRECT_URL_LOCAL);
+console.log(process.env.GOOGLE_REDIRECT_URL_HOST);
 passport.use(
   new GoogleStrategy(
     {
@@ -18,7 +20,6 @@ passport.use(
         process.env.NODE_ENV === "development"
           ? process.env.GOOGLE_REDIRECT_URL_LOCAL
           : process.env.GOOGLE_REDIRECT_URL_HOST,
-          // scope: ['email', 'profile'] 
     },
     async function (accessToken, refreshToken, profile, cb) {
       try {
