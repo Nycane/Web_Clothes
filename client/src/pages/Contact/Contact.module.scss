@@ -1,5 +1,5 @@
 @import '../../utils/responsive.scss';
-@import '../../Scss/mixins/hoverText.scss';
+@import '../../scss/mixins/hoverText.scss';
 .contact-form {
     & .title {
         font-size: clamp(2.5rem, 2.4rem + 0.5vw, 3rem);
