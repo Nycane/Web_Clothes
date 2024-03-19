@@ -105,7 +105,7 @@ class authService {
         path: "/",
         maxAge: 30 * 24 * 60 * 60 * 1000,
         secure: false,
-        sameSite: "strict",
+        sameSite: "none",
       });
     } else {
       console.error("Invalid data");
