@@ -1,0 +1,35 @@
+.box-avatar {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+    gap: 30px;
+}
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 999px;
+    object-fit: cover;
+    object-position: center;
+}
+.input {
+    & .custom-btn {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 4px 24px;
+        color: #666666;
+        cursor: pointer;
+        text-transform:capitalize;
+        font-weight: 500;
+        font-size: 1.4rem;
+        text-align: center;
+        transition: all 0.3s ease-in-out;
+        &:hover {
+            background-color: #ddd;
+        }
+    }
+}
+
+input[type='file'] {
+    display: none;
+}

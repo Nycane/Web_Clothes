@@ -1,0 +1,7 @@
+@import '../../../../utils/responsive.scss';
+
+@include pc() {
+    .img {
+        margin-top: calc(100vh - 75vh);
+    }
+}

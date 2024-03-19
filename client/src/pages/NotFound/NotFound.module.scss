@@ -1,0 +1,56 @@
+@import '../../utils/responsive.scss';
+.notfound-content {
+    padding: 100px 0 90px;
+    text-align: center;
+}
+.title-error {
+    font-size: clamp(10rem, 6rem + 20vw, 30rem);
+    line-height: 1;
+    color: var(--color-black);
+}
+.sub-title {
+    font-size: clamp(1.8rem, 1.1600000000000001rem + 3.2vw, 5rem);
+    color: var(--color-black);
+    font-weight: 500;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 20px;
+    &::before {
+        position: absolute;
+        content: '';
+        width: 140px;
+        height: 2px;
+        bottom: 0;
+        background: #ccc;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+.sub-error {
+    max-width: 325px;
+    margin: auto;
+    color: #666;
+}
+.btn {
+    text-transform: uppercase;
+    padding: 12px 40px;
+    font-weight: 500;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    margin-top: 30px;
+    transition: all 0.3 ease;
+    display: inline-block;
+    &:hover {
+        background-color: var(--hover-brown);
+    }
+}
+
+@include small-mobile(){
+    .notfound-content{
+        padding-left: 15px;
+        padding-right: 15px;
+        & .sub-title{
+            font-size: 1.8rem;
+        }
+    }
+}

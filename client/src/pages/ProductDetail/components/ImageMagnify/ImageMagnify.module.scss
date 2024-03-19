@@ -1,0 +1,19 @@
+@import '../../../../utils/responsive.scss';
+.image-magnify{
+    width: 80%;
+    max-height: 600px;
+    display: block;
+    margin: 0 auto;
+    // &.isLoading{
+    //     color: #f5f5f5;
+    //     background-color: #f5f5f5;
+    //     & > div {
+    //         visibility: hidden;
+    //     }
+    // }
+}
+@include larger-mobile(){
+    .image-magnify{
+        width: 95%;
+    }
+}

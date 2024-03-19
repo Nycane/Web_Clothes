@@ -1,0 +1,106 @@
+@import '../../../../utils/responsive.scss';
+// .order-scroll {
+//     // overflow-y: scroll;
+//     overflow-x: scroll;
+//     &::-webkit-scrollbar {
+//         height: 4px;
+//     }
+// }
+.title-order {
+    padding: 12px 22px 12px 0px;
+    margin: 0 0 24px;
+    color: #515151;
+    border-top: 3px solid #a46497;
+    list-style: none outside;
+    width: auto;
+    font-size: 1.6rem;
+    word-wrap: break-word;
+    border-top-color: #222;
+    width: 100%;
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    & td:nth-child(2) {
+        color: #666666;
+    }
+    & .td,
+    .th {
+        text-transform: capitalize;
+        padding: 16px 30px;
+        line-height: 1.7;
+        vertical-align: top;
+        border: 1px solid #e6e6e6;
+        color: var(--color-black);
+    }
+    & .td {
+        font-size: 1.4rem;
+        color: #666666;
+        min-width: 100px;
+        & .order-quantity {
+            padding-left: 5px;
+            text-transform: lowercase;
+        }
+        & .order-id {
+            color: var(--color-black);
+            &:hover {
+                color: var(--color-brown);
+                cursor: pointer;
+            }
+        }
+    }
+    & .td:nth-of-type(5) .view:hover {
+        color: var(--color-brown);
+    }
+}
+// paginate
+.paginate {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 6px;
+}
+.custom-pagelink-back,
+.custom-pagelink-next {
+    font-size: 1.5rem;
+    transition: color ease 0.3s;
+    &:hover {
+        color: var(--hover-brown);
+    }
+}
+.scrollToView {
+    position: relative;
+    top: -40px;
+}
+@include pc() {
+    .table {
+        text-align: center;
+        & .th,.td{
+            padding: 16px 24px;
+        }
+    }
+}
+@include tablet-mobile() {
+    .order-scroll {
+        // overflow-y: scroll;
+        overflow-x: scroll;
+        &::-webkit-scrollbar {
+            height: 4px;
+        }
+    }
+    .table {
+        & .td {
+            min-width: 120px;
+        }
+        & .th {
+            text-align: center !important;
+        }
+    }
+}
+@include larger-mobile() {
+    .table {
+        & .td {
+            padding: 16px 20px;
+        }
+    }
+}

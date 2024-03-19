@@ -1,0 +1,160 @@
+@import '../../../../utils/responsive.scss';
+.mb-15 {
+    margin-bottom: 15px;
+}
+.banner-video {
+    position: relative;
+    & .img-banner {
+        width: 100%;
+    }
+}
+.content-video-wrap {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    & .icon-box {
+        cursor: pointer;
+        position: relative;
+        left: 50%;
+        width: 150px;
+        height: 150px;
+        border-radius: 999px;
+        background-color: rgba(127, 66, 39, 0.5);
+        transform: translate(-50%, -50%);
+        text-align: center;
+        line-height: 150px;
+        transition: all 0.3s ease;
+        &::after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            top: calc(50% - 75px);
+            left: calc(50% - 75px);
+            border: 1px solid rgba(127, 66, 39, 0.5);
+            border-radius: 50%;
+            -webkit-border-radius: 50%;
+            -webkit-animation-name: scale;
+            animation-name: scale;
+            -webkit-animation-duration: 2s;
+            animation-duration: 2s;
+            -webkit-animation-timing-function: ease-in-out;
+            animation-timing-function: ease-in-out;
+            -webkit-animation-iteration-count: infinite;
+            animation-delay: 1s;
+            -webkit-animation-delay: 1s;
+            animation-iteration-count: infinite;
+        }
+        &::before {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            top: calc(50% - 75px);
+            left: calc(50% - 75px);
+            border: 1px solid rgba(127, 66, 39, 0.5);
+            border-radius: 50%;
+            -webkit-border-radius: 50%;
+            -webkit-animation-name: scale;
+            animation-name: scale;
+            -webkit-animation-duration: 2s;
+            animation-duration: 2s;
+            -webkit-animation-timing-function: ease-in-out;
+            animation-timing-function: ease-in-out;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+        }
+        & .icon {
+            color: var(--color-white);
+            font-size: 3rem;
+        }
+        &:hover {
+            background-color: transparent;
+            &::after,
+            &::before {
+                border: 1px solid hsla(0, 0%, 100%, 0.5);
+            }
+        }
+    }
+}
+.content-wrap {
+    padding: 0px 15px 0px 90px;
+    & .title-small {
+        color: #666;
+        font-weight: 400;
+        letter-spacing: 4px;
+        margin-bottom: 20px;
+    }
+    & .title-default {
+        font-size: 3rem;
+        font-weight: 500;
+        padding: 15px 0px 50px;
+    }
+    & .text {
+        color: #666;
+        font-weight: 400;
+        line-height: 1.7;
+        font-size: clamp(1.4rem, 1.3599999999999999rem + 0.20000000000000018vw, 1.6rem);
+    }
+}
+@keyframes scale {
+    0% {
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.5);
+        -webkit-transform: scale(1.5);
+        opacity: 0;
+    }
+}
+.custom-modal {
+    height: calc(70vw * 9 / 16);
+    width: 70vw;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+// Responsive
+@include pc() {
+    .content-wrap {
+        padding: 0 7.5px 0 42px;
+    }
+}
+
+@include larger-mobile() {
+    .content-video-wrap {
+        & .icon-box {
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            &::after {
+                top: calc(50% - 50px);
+                left: calc(50% - 50px);
+                width: 100px;
+                height: 100px;
+            }
+            &::before {
+                top: calc(50% - 50px);
+                left: calc(50% - 50px);
+                width: 100px;
+                height: 100px;
+            }
+        }
+    }
+    .custom-modal {
+        height: calc(90vw * 9 / 16);
+        width: 90vw;
+    }
+    .banner-video {
+        padding: 7.5px;
+        margin-bottom: 50px;
+    }
+    .content-wrap {
+        text-align: center;
+        padding: 0px 7.5px;
+    }
+}

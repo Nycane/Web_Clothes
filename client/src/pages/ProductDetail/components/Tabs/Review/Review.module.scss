@@ -1,0 +1,91 @@
+@import '../../../../../utils/responsive.scss';
+.review-item {
+    margin: 15px 0px;
+    border: 1px solid #d9d9d9;
+    padding: 30px;
+    position: relative;
+    & .info-user {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        & .rate {
+            margin-left: 15px;
+            & .icon-star {
+                font-size: 1rem;
+                padding-right: 4.5px;
+                color: #de982b;
+            }
+
+            & .date {
+                display: block;
+                font-size: 1.2rem;
+                color: #666666;
+            }
+            & .name {
+                display: block;
+                width: 100%;
+                font-weight: 500;
+                padding: 5px 0px;
+            }
+        }
+        & .avatar {
+            display: block;
+            object-fit: cover;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+    }
+    & .info-comment {
+        margin-top: 12px;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        white-space: pre-line;
+    }
+    & .comment-text {
+        font-size: 1.4rem;
+        text-align: justify;
+    }
+    & .remove-comment {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        cursor: pointer;
+        &:hover {
+            color: var(--color-brown);
+        }
+    }
+}
+@include larger-mobile() {
+    .custom-item-next {
+        font-size: clamp(1.8rem, 1.76rem + 0.19999999999999996vw, 2rem);
+    }
+    .custom-item-back {
+        font-size: clamp(1.8rem, 1.76rem + 0.19999999999999996vw, 2rem);
+    }
+}
+@include small-mobile() {
+    .review-item {
+        & .info-user {
+            flex-direction: column;
+            align-items: flex-start;
+            & .rate {
+                display: flex;
+                flex-wrap: wrap;
+                margin-left: 0px;
+                & .icon-star {
+                    order: 2;
+                }
+
+                & .name {
+                    order: 1;
+                }
+                & .date {
+                    margin-top: 6px;
+                    width: 100%;
+                    order: 3;
+                }
+            }
+        }
+    }
+}

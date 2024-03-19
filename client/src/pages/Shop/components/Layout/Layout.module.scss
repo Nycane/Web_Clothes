@@ -1,0 +1,69 @@
+@import '../../../../utils/responsive.scss';
+.scroll-position {
+    position: relative;
+    top: -14px;
+}
+.toogle {
+    display: none;
+}
+.container-filter-tb {
+    display: none;
+}
+// custom css modal sidebar ,mode tablet-mobile
+@keyframes fade {
+    from {
+        opacity: 0;
+        left: -100%; /* bắt đầu tại vị trí bên ngoài màn hình */
+    }
+
+    to {
+        opacity: 1;
+        left: 0%; /* di chuyển tới vị trí giữa màn hình */
+    }
+}
+.custom-modal{
+    width: 330px;
+    height: 100vh;
+    animation: fade 0.4s cubic-bezier(0,0.8,1,1);
+    overflow-y: scroll;
+    overscroll-behavior: contain;
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+}
+.custom-btn-close{
+    right: 5%;
+}
+@include tablet-mobile() {
+    .sidebar-tablet-mobile{
+        padding: 45px 0px 5px;
+    }
+    .sidebar-pc{
+        display: none;
+    }
+    .container-filter-tb {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0px 7.5px;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+    .toogle {
+        display: inline-block;
+        border: 1px solid #000000;
+        height: 36px;
+        padding: 8px;
+    }
+}
+@include larger-mobile(){
+    .custom-modal{
+        width: 260px;
+    }
+}
+@include medium-mobile(){
+
+}
+@include small-mobile(){
+
+}

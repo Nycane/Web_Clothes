@@ -1,0 +1,22 @@
+.slider-wrap {
+    border: none;
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+}
+.border{
+    border-top: 1px solid #ccc;
+}
+.padding{
+    padding: 90px 0px;   
+    // padding: 100px 140px 105px;
+}
+.margin{
+    margin-top: 100px;
+}
+.custom-padding{
+    padding: 40px 0px 50px;   
+}
+.disabled {
+    pointer-events: none;
+}

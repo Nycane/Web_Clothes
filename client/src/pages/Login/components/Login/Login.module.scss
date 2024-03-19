@@ -1,0 +1,141 @@
+@import '../../../../utils/responsive.scss';
+.form-signin {
+    position: absolute;
+    transform: translateX(140%);
+    padding: 40px;
+    transition: transform 0.5s ease;
+    visibility: hidden;
+    width: 100%;
+    & .error {
+        color: red;
+        display: block;
+    }
+    & input {
+        padding: 16px 20px;
+        display: block;
+        width: 100%;
+        margin: 12px 0px;
+        border: 1px solid #e5e5e5;
+    }
+
+    & .lost-password {
+        margin-top: 12px;
+        display: block;
+        font-size: 1.2rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        position: relative;
+        margin-bottom: 14px;
+        display: inline-block;
+        &::before {
+            position: absolute;
+            content: '';
+            bottom: -2px;
+            width: 100%;
+            transform: scaleX(1);
+            height: 1px;
+            background-color: var(--bg-black);
+            transition: transform 0.4s ease;
+        }
+        &:hover::before {
+            transform: scaleX(0.5);
+        }
+    }
+
+    & .btn-signin,
+    .btn-next-register {
+        margin-top: 14px;
+        width: 100%;
+        padding: 17px 20px;
+        background-color: var(--bg-black);
+        color: var(--color-white);
+        text-transform: uppercase;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        &:hover {
+            background-color: var(--hover-brown);
+        }
+    }
+
+    & .btn-next-register {
+        background-color: rgba(34, 34, 34, 0.6);
+    }
+
+    &.active {
+        visibility: visible;
+        transform: translateX(0%);
+    }
+}
+.social-login {
+    margin-top: 20px;
+    & .line {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        & .line-one,
+        .line-two {
+            flex: 1;
+        }
+        flex: 1;
+        & .line-text {
+            color: var(--color-black);
+            text-align: center;
+            padding:0px 8px;
+            font-weight: 500;
+            font-style: italic;
+        }
+    }
+}
+.social-button {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    .google-button {
+        background-color: #df4930;
+        color: var(--color-white);
+        padding: 12px 36px;
+        border-radius: 5px;
+        text-align: center;
+        transition: background-color 0.4s ease;
+        &:hover {
+            background-color: darken(#df4930, 5%);
+        }
+        & .text-gg {
+            margin-left: 5px;
+            font-size: 1.4rem;
+            font-weight: 300;
+        }
+    }
+    .facebook-button {
+        background-color: #507cc0;
+        color: var(--color-white);
+        padding: 12px 36px;
+        border-radius: 5px;
+        text-align: center;
+        transition: background-color 0.4s ease;
+        &:hover {
+            background-color: darken(#507cc0, 5%);
+        }
+        & .text-fb {
+            margin-left: 5px;
+            font-size: 1.4rem;
+            font-weight: 300;
+        }
+    }
+}
+@include larger-mobile(){
+    .form-signin{
+        padding: 15px;
+    }
+}
+@include medium-mobile(){
+    .google-button{
+        width: 100%;
+    }
+    .facebook-button{
+        width: 100%;
+    }
+}

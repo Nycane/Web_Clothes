@@ -1,0 +1,134 @@
+@import '../../../../utils/responsive.scss';
+.order-wrap {
+    width: 100%;
+    height: auto;
+    padding: 0px 15px;
+    & .text-focus {
+        padding: 0px 5px;
+        background-color: #fcf8e3;
+        font-weight: 500;
+    }
+    & .order-thank {
+        background: transparent;
+        border: 2px dashed #666666;
+        font-weight: 500;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 30px;
+        line-height: 1.4;
+        padding: 15px 25px;
+        color: #666666;
+    }
+    & .order-detail {
+        list-style-type: none;
+        display: flex;
+        justify-content: space-between;
+        & strong {
+            color: #666666;
+        }
+    }
+    & .order-detail-title {
+        margin-top: 50px;
+        margin-bottom: 10px;
+        font-family: Jost, sans-serif;
+        font-weight: 500;
+        line-height: 1.2;
+        color: #222;
+    }
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    & td:nth-child(2) {
+        color: #666666;
+    }
+
+    & .td,
+    .th {
+        text-transform: capitalize;
+        padding: 16px 30px;
+        line-height: 1.7;
+        vertical-align: top;
+        border: 1px solid #e6e6e6;
+        color: var(--color-black);
+        & .text-bold {
+            color: #404040;
+            font-weight: 500;
+        }
+        & .text-gray {
+            color: #666;
+            font-weight: 500;
+        }
+    }
+}
+.billing-address {
+    width: 50%;
+    margin-left: 20px;
+    margin-top: 50px;
+    & .billing-title {
+        font-size: 2rem;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    & .billing-group {
+        padding: 25px 30px 30px;
+        border: 2px dashed var(--border-color, #e5e5e5);
+        & .billing-item {
+            color: #666666;
+            padding: 5px 0px;
+        }
+    }
+}
+.checkout-failed {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+    & .checkout-title {
+        display: block;
+        width: 100%;
+    }
+}
+.color-size {
+    margin-left: 40px;
+    & .title-color,
+    .title-size {
+        font-weight: 500;
+        color: #666666;
+    }
+}
+@include pc() {
+    .order-wrap {
+        padding: 0px 0px;
+        & .order-thank {
+            line-height: 2;
+        }
+    }
+    .billing-address {
+        margin-left: 0px;
+        & .billing-group {
+            width: calc(100vw / 2);
+        }
+    }
+}
+// @include tablet-mobile() {
+//     .billing-address {
+//         margin-left: 0px;
+//         & .billing-group {
+//             width: calc(100vw / 2);
+//         }
+//     }
+// }
+@include larger-mobile() {
+    .table {
+        & .td {
+            padding: 16px 20px;
+        }
+    }
+    .billing-address {
+        .billing-group {
+            width: calc(100vw - 30px);
+        }
+    }
+}

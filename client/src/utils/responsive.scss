@@ -1,0 +1,35 @@
+@mixin pc(){
+    @media only screen and (max-width:89.9375em) {
+        @content
+    }
+}
+@mixin tablet(){
+    @media only screen and (max-width:63.9375em) and (min-width:48em) {
+        @content
+    }
+}
+ // 1023px
+@mixin tablet-mobile(){
+    @media only screen and (max-width:63.9375em) {
+        @content
+    }
+}
+    // 767px
+@mixin larger-mobile(){
+    // 47.9375
+    @media only screen and (max-width:47.93755em) {
+        @content
+    }
+}
+    // 375px
+@mixin medium-mobile(){
+    @media only screen and (max-width:26.5em) {
+        @content
+    }
+}
+    // 374px
+@mixin small-mobile(){
+    @media only screen and (max-width:23.375em) {
+        @content
+    }
+}

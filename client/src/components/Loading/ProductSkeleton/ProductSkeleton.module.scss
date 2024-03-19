@@ -1,0 +1,54 @@
+@import '../../../utils/responsive.scss';
+.card{
+    padding: 0 14px;
+    margin: 0 0 30px;
+    width: 100%;
+    height: auto;
+    background-color: var(--bg-white);
+    .card-body {
+        width: 100%;
+        height: 80%;
+        margin-bottom: 14px;
+        position: relative;
+        & .img {
+            max-height: 942px;
+            max-width: 942px;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .card-content {
+        width: 100%;
+        height: 20%;
+        text-align: center;
+        & .product-title {
+            display: inline-block;
+            text-decoration: none;
+            color: #222;
+            font-size: 1.4rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        & .product-price {
+            display: inline-block;
+            color: var(--color-brown);
+            font-weight: 500;
+            font-size: 1.8rem;
+            & .discount{
+                font-size: 1.4rem;
+                color: #666;
+                font-weight: 300;
+            }
+        }
+    }
+}
+@include tablet-mobile(){
+    .card{
+        & .card-body{
+            & .img{
+
+            }
+        }
+    }
+}

@@ -1,0 +1,109 @@
+// // layout for other component
+@import '../../utils/responsive.scss';
+// hover text
+@import '../../Scss/mixins/hoverText.scss';
+// header banner
+.background {
+    background-image: url('https://res.cloudinary.com/djdsp9etg/image/upload/v1703150724/image/bg-breadcrumb_sy8wqq.jpg');
+    padding: 70px 0 75px;
+    background-position: center;
+    text-align: center;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-bottom: 100px;
+}
+
+.wrap {
+    & .title {
+        margin-top: 0;
+        font-size: 40px;
+        text-transform: uppercase;
+        text-align: center;
+        color: #222222;
+        font-size: clamp(3rem, 2.8rem + 1vw, 4rem);
+        font-weight: 500;
+        margin-bottom: 12px;
+    }
+    & .icon {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+    & .title-page {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        & .before {
+            @include hover-text;
+            text-decoration: none;
+            font-size: 1.6rem;
+            color: #222;
+        }
+        & .greater-than {
+            padding: 0px 15px;
+            color: #666;
+            font-size: 1.4rem;
+        }
+        & .current {
+            font-size: 1.6rem;
+            color: #666;
+            pointer-events: none;
+            &.isClick {
+                @include hover-text;
+                pointer-events: all;
+                color: #222;
+            }
+        }
+    }
+}
+
+// header about
+.img-bg {
+    background-image: url('https://wpbingosite.com/wordpress/mafoil/wp-content/uploads/2023/01/bg-about.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 0px;
+    margin-bottom: 100px;
+    padding: 465px 15px 110px 15px;
+    & .img-title {
+        font-size: clamp(2.5rem, 2.2rem + 1.5vw, 4rem);
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+}
+@include pc() {
+    .img-bg {
+        padding: 350px 15px 100px;
+    }
+}
+@include tablet-mobile() {
+    // header banner
+    .wrap {
+        & .title-page {
+            & .greater-than {
+                padding: 0px 15px;
+            }
+        }
+    }
+    // hedader about
+    .img-bg {
+        padding: 300px 15px 100px;
+    }
+}
+@include larger-mobile() {
+    // header banner
+    .background {
+        background-position: 70%;
+        padding: 40px 0 45px;
+
+        margin-bottom: 50px;
+    }
+    // header about
+    .img-bg {
+        margin-bottom: 15px;
+        & .img-title {
+            text-align: center;
+        }
+    }
+}

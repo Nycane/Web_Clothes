@@ -1,0 +1,84 @@
+@import '../../../../../utils/responsive.scss';
+.text-otp {
+    font-size: 1.6rem;
+    color: #666;
+    & .name {
+        color: var(--color-black);
+    }
+}
+.input-otp {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin: 16px 0px 24px;
+}
+.btns {
+    display: flex;
+    width: 25%;
+    justify-content: flex-start;
+    margin-top: 15px;
+    gap: 20px;
+    & .btn-send-otp {
+        font-weight: 600;
+        text-transform: uppercase;
+        background-color: var(--bg-black);
+        padding: 14px;
+        color: var(--color-white);
+        transition: all ease 0.3s;
+        min-width: 130px;
+        &:hover {
+            background-color: var(--hover-brown);
+        }
+    }
+    & .btn-confirm-otp {
+        font-weight: 600;
+        text-transform: uppercase;
+        background-color: var(--bg-black);
+        padding: 14px;
+        color: var(--color-white);
+        transition: all 0.3s ease-in-out;
+        min-width: 130px;
+
+        &:hover {
+            background-color: var(--hover-brown);
+        }
+    }
+}
+.error {
+    margin-bottom: 6px;
+    color: red;
+    display: block;
+}
+.loading-icon {
+    animation: rotate infinite 0.8s ease;
+}
+@keyframes rotate {
+    from {
+        transform: rotate(360deg);
+    }
+}
+@include tablet-mobile() {
+    .text-otp{
+        line-height: 1.5;
+    }
+    .btns {
+        width: 35%;
+    }
+}
+@include larger-mobile() {
+    .btns {
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 25px;
+        & .btn-send-otp {
+            width: 45%;
+            padding: 14px;
+        }
+        & .btn-confirm-otp {
+            width: 45%;
+        }
+    }
+    .text-otp{
+        text-align: center;
+    }
+}
