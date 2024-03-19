@@ -18,6 +18,7 @@ passport.use(
         process.env.NODE_ENV === "development"
           ? process.env.GOOGLE_REDIRECT_URL_LOCAL
           : process.env.GOOGLE_REDIRECT_URL_HOST,
+          scope: ['email', 'profile'] 
     },
     async function (accessToken, refreshToken, profile, cb) {
       try {
