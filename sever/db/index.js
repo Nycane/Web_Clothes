@@ -8,7 +8,7 @@ const pool = mysql.createPool({
   port: process.env.DB_PORT,
 });
 pool.getConnection((err, conn) => {
-  if (err) console.log(err);
+  if (err) console.log("error",err);
   console.log("Connected successfully");
 });
 
