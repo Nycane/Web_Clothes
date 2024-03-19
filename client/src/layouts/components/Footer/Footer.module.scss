@@ -1,6 +1,6 @@
 @import '../../../utils//responsive.scss';
 $padding-df: 6px;
-@import '../../../Scss//mixins/hoverText.scss';
+@import '../../../scss//mixins/hoverText.scss';
 
 @mixin title-content() {
     & .title-content {
