@@ -2,7 +2,7 @@ import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { useDispatch } from 'react-redux';
-import {ACCOUNT_PATHS} from '../../../../constants';
+import { ACCOUNT_PATHS } from '../../../../constants';
 import { scrollViewToPoint } from '../../../../utils/myUtils';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
@@ -10,14 +10,15 @@ import useValidate from '../../../../components/Hook/useValidate';
 import { login } from '../../../../redux/slice/userSlice';
 import styles from './Login.module.scss';
 const cx = classNames.bind(styles);
-function Login({ setToggle, toggle,scrollPosition }) {
+function Login({ setToggle, toggle, scrollPosition }) {
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     // Validate form
     const options = {
         email: yup
-            .string().trim()
+            .string()
+            .trim()
             .email('Please enter a valid email address: Example@gmail.com')
             .required('This email field cannot be empty'),
         password: yup.string().trim().required('This password field cannot be empty'),
@@ -34,7 +35,7 @@ function Login({ setToggle, toggle,scrollPosition }) {
         dispatch(login(data))
             .unwrap()
             .then((data) => {
-                navigate(location?.state?.from?.pathname?`${location.state.from.pathname}`:'/',{replace:true});
+                navigate(location?.state?.from?.pathname ? `${location.state.from.pathname}` : '/', { replace: true });
             })
             .catch((error) => {
                 console.log(error);
@@ -42,23 +43,30 @@ function Login({ setToggle, toggle,scrollPosition }) {
         reset();
     };
     function handleRedirectGoogle() {
-        const url = process.env.NODE_ENV === "development" ? process.env.GOOGLE_REDIRECT_URL_LOCAL :process.env.GOOGLE_REDIRECT_URL_HOST;
+        const url =
+            process.env.NODE_ENV === 'development'
+                ? 'http://localhost:8000/api/v1/social/auth/google/callback'
+                : 'https://web-clothes.onrender.com/api/v1/social/auth/google/callback';
+        console.log(url);
         window.open(url, '_self');
-        setValue('email','');
-        setValue('password','');
+        setValue('email', '');
+        setValue('password', '');
     }
     function handleRedirectFacebook() {
-        const url = process.env.NODE_ENV === "development" ? process.env.FACEBOOK_REDIRECT_URL_LOCAL :process.env.FACEBOOK_REDIRECT_URL__HOST;
+        const url =
+            process.env.NODE_ENV === 'development'
+                ? 'http://localhost:8000/api/v1/social/auth/facebook/callback'
+                : 'https://web-clothes.onrender.com/api/v1/social/auth/facebook/callback';
         window.open(url, '_self');
-        setValue('email','');
-        setValue('password','');
+        setValue('email', '');
+        setValue('password', '');
     }
     function handleSetToogle() {
-      scrollViewToPoint(scrollPosition)
+        scrollViewToPoint(scrollPosition);
         setToggle('register');
         clearErrors();
     }
-        return (
+    return (
         <form
             autoComplete="no"
             noValidate
@@ -71,7 +79,7 @@ function Login({ setToggle, toggle,scrollPosition }) {
             <span className={cx('error')}>{errors.email?.message}</span>
             <input type="password" {...register('password')} placeholder="Password*" />
             <span className={cx('error')}>{errors.password?.message}</span>
-            <Link to={ACCOUNT_PATHS.ACCOUNT+ACCOUNT_PATHS.LOST_PASSWORD} className={cx('lost-password')}>
+            <Link to={ACCOUNT_PATHS.ACCOUNT + ACCOUNT_PATHS.LOST_PASSWORD} className={cx('lost-password')}>
                 lost your password?
             </Link>
             <button type="submit" className={cx('btn-signin')}>
