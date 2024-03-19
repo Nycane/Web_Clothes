@@ -21,9 +21,9 @@ app.use(
       process.env.NODE_ENV === "development"
         ? process.env.CLIENT_URL
         : process.env.PRODUCTION_URL, // replace with your client app URL
-       credentials: true,
-    // methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
-    // allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+    methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use(cookieParser());
