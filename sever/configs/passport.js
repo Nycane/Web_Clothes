@@ -14,11 +14,9 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL:
-        process.env.NODE_ENV === "development"
-          ? process.env.GOOGLE_REDIRECT_URL_LOCAL
-          : process.env.GOOGLE_REDIRECT_URL_HOST,
-          scope: ['email', 'profile'] 
+      callbackURL:"https://web-clothes.onrender.com/api/v1/social/auth/google/callback"
+        
+          // scope: ['email', 'profile'] 
     },
     async function (accessToken, refreshToken, profile, cb) {
       try {
