@@ -11,8 +11,9 @@ let refreshPromise = null;
 async function getRefreshToken(dispatch) {
     try {
         const result = await axios.post(
-            'http://localhost:8000/api/v1/user/refreshtoken',
-            {},
+            process.env.NODE_ENV === 'development'
+                ? 'http://localhost:8000/api/v1/user/refreshtoken'
+                : 'https://web-clothes.onrender.com/api/v1/user/refreshtoken',
             {
                 headers: {
                     'Content-Type': 'application/json',
