@@ -111,7 +111,7 @@ class orderService {
       var tmnCode = process.env.VNP_TMNCODE;
       var secretKey = process.env.VNP_HASHSECRET;
       var vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-      var returnUrl = process.env.VNP_RETURNURL;
+      var returnUrl = process.end.NODE_ENV ? process.env.VNP_RETURNURL_LOCAL : process.env.VNP_RETURNURL_HOST;
       // create date
       var date = new Date();
       const moment = require("moment");

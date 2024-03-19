@@ -13,7 +13,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.GOOGLE_REDIRECT_URL,
+      callbackURL: process.env.NODE_ENV ? process.env.GOOGLE_REDIRECT_URL_LOCAL : process.env.GOOGLE_REDIRECT_URL_HOST,
     },
     async function (accessToken, refreshToken, profile, cb) {
       try {
@@ -42,7 +42,7 @@ passport.use(
     {
       clientID: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-      callbackURL: process.env.FACEBOOK_REDIRECT_URL,
+      callbackURL: process.env.NODE_ENV ? process.env.FACEBOOK_REDIRECT_URL_LOCAL : process.env.FACEBOOK_REDIRECT_URL_HOST,
       profileFields: ['id', 'displayName', 'photos', 'emails']
     },
    async function (accessToken, refreshToken, profile, cb) {
