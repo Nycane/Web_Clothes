@@ -111,7 +111,10 @@ class orderService {
       var tmnCode = process.env.VNP_TMNCODE;
       var secretKey = process.env.VNP_HASHSECRET;
       var vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-      var returnUrl = process.env.NODE_ENV === "development" ? process.env.VNP_RETURNURL_LOCAL : process.env.VNP_RETURNURL_HOST;
+      var returnUrl =
+        process.env.NODE_ENV === "development"
+          ? process.env.VNP_RETURNURL_LOCAL
+          : process.env.VNP_RETURNURL_HOST;
       // create date
       var date = new Date();
       const moment = require("moment");
@@ -192,15 +195,22 @@ class orderService {
                 // Ở đây cập nhật trạng thái giao dịch thanh toán thành công vào CSDL của bạn
                 //  res.status(200).json({ rspCode, Message: "Success" });
                 const order = await this.selectOrderDetailById(orderId);
-                // if (order.orderDetail[0].status == 0) {
-                //   await this.updateQuantity(order.productDetail);
-                //   const data = {
-                //     orderDetail: order.orderDetail[0],
-                //     productDetail: order.productDetail,
-                //   };
-                //   // update order status has paid
-                //   await this.updateOrderStatus(orderId,constant.ORDER_STATUS_PAID)
-                // }
+                console.log("order>>", order);
+                if (order.orderDetail[0].status == 0) {
+                  //update quantity khi payment success
+                  await this.updateQuantity(order.productDetail);
+
+                  // update order status has paid
+                  await this.updateOrderStatus(
+                    orderId,
+                    constant.ORDER_STATUS_PAID
+                  );
+                }
+                
+                const data = {
+                  orderDetail: order.orderDetail[0],
+                  productDetail: order.productDetail,
+                };
                 return handleResponse.createResponse(200, "Success", {
                   rspCode,
                   ...data,
@@ -317,7 +327,7 @@ class orderService {
     }
     return { orderDetail, productDetail };
   }
-  
+
   // SELECT ORDER DETAIL BY ID, USE FOR VNPAY
   async selectOrderDetailById(orderId) {
     const [orderDetail] = await pool.query(
