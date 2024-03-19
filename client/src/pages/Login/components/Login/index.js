@@ -42,12 +42,14 @@ function Login({ setToggle, toggle,scrollPosition }) {
         reset();
     };
     function handleRedirectGoogle() {
-        window.open('http://localhost:8000/api/v1/social/auth/google', '_self');
+        const url = process.env.NODE_ENV === "development" ? process.env.GOOGLE_REDIRECT_URL_LOCAL :process.env.GOOGLE_REDIRECT_URL_HOST;
+        window.open(url, '_self');
         setValue('email','');
         setValue('password','');
     }
     function handleRedirectFacebook() {
-        window.open('http://localhost:8000/api/v1/social/auth/facebook', '_self');
+        const url = process.env.NODE_ENV === "development" ? process.env.FACEBOOK_REDIRECT_URL_LOCAL :process.env.FACEBOOK_REDIRECT_URL__HOST;
+        window.open(url, '_self');
         setValue('email','');
         setValue('password','');
     }
