@@ -8,6 +8,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
 
 // Google strategy
+console.log(process.env.NODE_ENV)
 passport.use(
   new GoogleStrategy(
     {
