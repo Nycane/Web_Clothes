@@ -1,4 +1,12 @@
 @import '../../utils/responsive.scss';
+@include tablet(){
+    .Toastify__toast-container.Toastify__toast-container--top-left {
+        width: 50vw;
+        left: 1em;
+        top: 1em;
+        padding: 4px;
+    }
+}
 @include larger-mobile() {
     .Toastify__toast-container.Toastify__toast-container--top-left {
         width: 90vw;
