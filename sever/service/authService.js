@@ -101,7 +101,7 @@ class authService {
   saveDataInCookie(res, key, value) {
     if (value) {
       res.cookie(key, value, {
-        httpOnly: true,
+        httpOnly: false,
         path: "/",
         maxAge: 30 * 24 * 60 * 60 * 1000,
         secure: false,
