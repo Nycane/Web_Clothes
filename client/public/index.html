@@ -52,17 +52,17 @@
             var chatbox = document.getElementById('fb-customer-chat');
             chatbox.setAttribute('page_id', '200954726426462');
             chatbox.setAttribute('attribution', 'biz_inbox');
-            chatbox.style.display = 'none';
-            function scroll() {
-                console.log('co vo scoll khong', chatbox.style);
-                console.log(window.scrollY)
-                if (window.scrollY > 300) {
-                    chatbox.style.display = 'block';
-                } else {
-                    chatbox.style.display = 'none';
-                }
-            }
-            window.addEventListener('scroll', scroll);
+            // chatbox.style.display = 'none';
+            // function scroll() {
+            //     console.log('co vo scoll khong', chatbox.style);
+            //     console.log(window.scrollY)
+            //     if (window.scrollY > 300) {
+            //         chatbox.style.display = 'block';
+            //     } else {
+            //         chatbox.style.display = 'none';
+            //     }
+            // }
+            // window.addEventListener('scroll', scroll);
             // document.addEventListener('DOMContentLoaded', scroll);
         </script>
 
@@ -84,6 +84,23 @@
                 js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
                 fjs.parentNode.insertBefore(js, fjs);
             })(document, 'script', 'facebook-jssdk');
+            window.addEventListener('DOMContentLoaded', function() {
+    var chatbox = document.getElementById('fb-customer-chat');
+    chatbox.setAttribute('page_id', '200954726426462');
+    chatbox.setAttribute('attribution', 'biz_inbox');
+
+    function scroll() {
+        console.log('co vo scoll khong', chatbox.style);
+        console.log(window.scrollY)
+        if (window.scrollY > 300) {
+            chatbox.style.display = 'block';
+        } else {
+            chatbox.style.display = 'none';
+        }
+    }
+
+    window.addEventListener('scroll', scroll);
+});
         </script>
         <script type="module" src="/src/main.jsx"></script>
         <!--
