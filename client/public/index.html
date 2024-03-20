@@ -52,8 +52,9 @@
             var chatbox = document.getElementById('fb-customer-chat');
             chatbox.setAttribute('page_id', '200954726426462');
             chatbox.setAttribute('attribution', 'biz_inbox');
+            chatbox.style.display = 'none';
             function scroll() {
-                console.log('co vo scoll khong',chatbox);
+                console.log('co vo scoll khong', chatbox);
                 if (window.scrollY > 300) {
                     chatbox.style.display = 'block';
                 } else {
@@ -61,7 +62,7 @@
                 }
             }
             window.addEventListener('scroll', scroll);
-            document.addEventListener('DOMContentLoaded', scroll);
+            // document.addEventListener('DOMContentLoaded', scroll);
         </script>
 
         <!-- Your SDK code -->
