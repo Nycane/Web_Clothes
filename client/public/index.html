@@ -89,13 +89,18 @@
     chatbox.setAttribute('page_id', '200954726426462');
     chatbox.setAttribute('attribution', 'biz_inbox');
 
+    window.addEventListener('DOMContentLoaded', function() {
+    var chatbox = document.getElementById('fb-customer-chat');
+    chatbox.setAttribute('page_id', '200954726426462');
+    chatbox.setAttribute('attribution', 'biz_inbox');
+
     function scroll() {
         console.log('co vo scoll khong', chatbox.style);
-        console.log(window.scrollY > 300)
+        console.log(window.scrollY)
         if (window.scrollY > 300) {
-            chatbox.style.visibility = "hidden";
+            chatbox.style.display = 'block';
         } else {
-            chatbox.style.visibility = "visible";
+            chatbox.style.display = 'none';
         }
     }
 
