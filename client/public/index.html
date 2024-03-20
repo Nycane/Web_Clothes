@@ -2,10 +2,16 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <link rel="icon" href="https://wpbingosite.com/wordpress/mafoil/wp-content/uploads/2023/01/cropped-80x80-1-32x32.png" />
+        <link
+            rel="icon"
+            href="https://wpbingosite.com/wordpress/mafoil/wp-content/uploads/2023/01/cropped-80x80-1-32x32.png"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
-        <meta property="og:image" content="https://wpbingosite.com/wordpress/mafoil/wp-content/uploads/2022/12/banner-34.jpg" />
+        <meta
+            property="og:image"
+            content="https://wpbingosite.com/wordpress/mafoil/wp-content/uploads/2022/12/banner-34.jpg"
+        />
         <meta name="description" content="Web site created using create-react-app" />
         <title>Mafoil</title>
         <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
@@ -31,33 +37,42 @@
         <div id="fb-root"></div>
 
         <!-- Your Plugin chat code -->
-        <div id="fb-customer-chat" class="fb-customerchat">
-        </div>
-     
+        <div id="fb-customer-chat" class="fb-customerchat"></div>
+
         <script>
-          var chatbox = document.getElementById('fb-customer-chat');
-          chatbox.setAttribute("page_id", "200954726426462");
-          chatbox.setAttribute("attribution", "biz_inbox");
+          function scroll(){
+            if (window.scrollY > 300) {
+                chatbox.style.display = 'block';
+            } else {
+                chatbox.style.display = 'none';
+            }
+          }
+            window.addEventListener('scroll',scroll)
+            var chatbox = document.getElementById('fb-customer-chat');
+            chatbox.setAttribute('page_id', '200954726426462');
+            chatbox.setAttribute('attribution', 'biz_inbox');
         </script>
-     
+
         <!-- Your SDK code -->
         <script>
-          window.fbAsyncInit = function() {
-            FB.init({
-              xfbml            : true,
-              version          : 'v18.0'
-            });
-          };
-     
-          (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
-            fjs.parentNode.insertBefore(js, fjs);
-          }(document, 'script', 'facebook-jssdk'));
+            window.fbAsyncInit = function () {
+                FB.init({
+                    xfbml: true,
+                    version: 'v18.0',
+                });
+            };
+
+            (function (d, s, id) {
+                var js,
+                    fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+                fjs.parentNode.insertBefore(js, fjs);
+            })(document, 'script', 'facebook-jssdk');
         </script>
-         <script type="module" src="/src/main.jsx"></script>
+        <script type="module" src="/src/main.jsx"></script>
         <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
