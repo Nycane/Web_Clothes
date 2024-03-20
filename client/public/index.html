@@ -40,14 +40,14 @@
         <div id="fb-customer-chat" class="fb-customerchat"></div>
 
         <script>
-          function scroll(){
-            if (window.scrollY > 300) {
-                chatbox.style.display = 'block';
-            } else {
-                chatbox.style.display = 'none';
+            function scroll() {
+                if (window.scrollY > 300) {
+                    chatbox.style.display = 'block';
+                } else {
+                    chatbox.style.display = 'none';
+                }
             }
-          }
-            window.addEventListener('scroll',scroll)
+            window.addEventListener('scroll', scroll);
             var chatbox = document.getElementById('fb-customer-chat');
             chatbox.setAttribute('page_id', '200954726426462');
             chatbox.setAttribute('attribution', 'biz_inbox');
@@ -71,6 +71,16 @@
                 js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
                 fjs.parentNode.insertBefore(js, fjs);
             })(document, 'script', 'facebook-jssdk');
+            function scroll() {
+                var chatbox = document.getElementById('fb-customer-chat');
+                if (window.scrollY > 300) {
+                    chatbox.style.display = 'block';
+                } else {
+                    chatbox.style.display = 'none';
+                }
+            }
+            window.addEventListener('scroll', scroll);
+            document.addEventListener('DOMContentLoaded', scroll);
         </script>
         <script type="module" src="/src/main.jsx"></script>
         <!--
