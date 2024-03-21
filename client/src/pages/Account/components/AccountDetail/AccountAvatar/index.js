@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import Toast from '../../../../../components/Toastify';
 import style from './AccountAvatar.module.scss';
 // import { useSelector } from 'react-redux';

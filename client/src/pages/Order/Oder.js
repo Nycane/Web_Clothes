@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import classNames from 'classnames/bind';
 import moment from 'moment';
-import Checkout from '../Checkout/Checkout';
 import { useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate, Navigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import cartSlice from '../../redux/slice/cartSlice';
 import { getOrderDetailById, getResultPayment } from '../../redux/slice/orderSlice';
 import { formatPrice } from '../../utils/myUtils';

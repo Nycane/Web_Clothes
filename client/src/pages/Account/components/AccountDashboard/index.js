@@ -1,10 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames/bind';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../../../../redux/slice/userSlice';
 import wishlistSlice from '../../../../redux/slice/wishlistSLice';
 import styles from './AccountDashboard.module.scss';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 const cx = classNames.bind(styles);
 function AccountDashboard({user}) {
     const dispatch = useDispatch();

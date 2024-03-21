@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import Validate from '../../components/Hook/useValidate';
 import { addOrder, createPayment } from '../../redux/slice/orderSlice';
@@ -15,7 +15,6 @@ const cx = classNames.bind(styles);
 function Checkout() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const location = useLocation();
     const carts = useSelector((state) => state.cart);
     const user = useSelector((state) => state.user.info);
     const isAuth = useSelector((state) => state.user.isAuth);

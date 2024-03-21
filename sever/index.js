@@ -8,19 +8,13 @@ const cookieParser = require("cookie-parser");
 require("./configs/passport");
 const app = express();
 // cors
-// const corsOptions = {
-//     origin: 'http://localhost:3000', // replace with your client app URL
-//     credentials: true,
-//     // methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
-//     // allowedHeaders: ['Content-Type', 'Authorization']
-// };
 console.log(process.env.NODE_ENV);
 app.use(
   cors({
     origin:
       process.env.NODE_ENV === "development"
         ? process.env.CLIENT_URL
-        : process.env.PRODUCTION_URL, // replace with your client app URL
+        : process.env.PRODUCTION_URL,
     credentials: true,
     methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],

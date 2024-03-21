@@ -5,15 +5,16 @@ import jwtDecode from 'jwt-decode';
 import { logout } from '../redux/slice/userSlice';
 import wishlistSlice from '../redux/slice/wishlistSLice';
 const env = process.env.NODE_ENV;
-const baseUrl = env === 'development' ? process.env.REACT_APP_API_LOCAL : process.env.REACT_APP_API_URL;
+const baseUrl = env === 'development' ? process.env.REACT_APP_API_LOCAL : process.env.REACT_APP_API_HOST;
+console.log(baseUrl)
 let isRefreshing = false;
 let refreshPromise = null;
 async function getRefreshToken(dispatch) {
     try {
         const result = await axios.post(
             process.env.NODE_ENV === 'development'
-                ? 'http://localhost:8000/api/v1/user/refreshtoken'
-                : `${process.env.REACT_APP_API_URL}/user/refreshtoken`,
+                ? `${process.env.REACT_APP_API_LOCAL}/user/refreshtoken`
+                : `${process.env.REACT_APP_API_HOST}/user/refreshtoken`,
             {},
             {
                 headers: {

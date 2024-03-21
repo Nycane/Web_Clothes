@@ -1,12 +1,9 @@
 import classNames from 'classnames/bind';
 import ReactImageMagnify from 'react-image-magnify';
-import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { useSelector } from 'react-redux';
 import styles from './ImageMagnify.module.scss';
 const cx = classNames.bind(styles);
 function ImageMagnify({ src }) {
-    const isLoading = useSelector((state) => state.product.isLoading);
     return (
         <div
             className={cx('image-magnify', {

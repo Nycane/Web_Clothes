@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import productApi from '../../apis/productApi';
 import orderApi from '../../apis/orderApi';
 import Toast from '../../components/Toastify';
 import apiService from '../../utils/apiService';
@@ -78,5 +77,5 @@ const getOrderDetailById = createAsyncThunk('order/getOrderDetailById', async (d
     let result = await orderApi.getOrderDetailById(data, dispatch);
     return result;
 });
-export { addOrder, createPayment, getResultPayment, getOrders, getOrderDetailById };
+export { addOrder, createPayment, getOrderDetailById, getOrders, getResultPayment };
 export default orderSlice;

@@ -1,9 +1,9 @@
-import { Container, Col, Row } from 'react-bootstrap';
-import Image from '../../Img/Img';
 import classNames from 'classnames/bind';
-import styles from './Banner.module.scss';
+import { Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import {ROUTES_PATHS, SHOP_PATHS} from '../../../constants';
+import { SHOP_PATHS } from '../../../constants';
+import Image from '../../Img/Img';
+import styles from './Banner.module.scss';
 const cx = classNames.bind(styles);
 function BannerCustom({
     left = false,

@@ -1,16 +1,15 @@
+import classNames from 'classnames/bind';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { loginSocial } from '../../../../redux/slice/userSlice';
+import { useNavigate, useParams } from 'react-router-dom';
 import Image from '../../../../components/Img';
 import TextLoading from '../../../../components/Loading/TextLoading';
-import {delay} from '../../../../utils/myUtils';
-import classNames from 'classnames/bind';
-import styles from './LoginSocial.module.scss';
 import Toast from '../../../../components/Toastify';
+import { loginSocial } from '../../../../redux/slice/userSlice';
+import { delay } from '../../../../utils/myUtils';
+import styles from './LoginSocial.module.scss';
 const cx = classNames.bind(styles);
 function LoginSocial() {
-    const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const param = useParams();

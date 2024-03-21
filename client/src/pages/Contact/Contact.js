@@ -1,16 +1,15 @@
 /* eslint-disable jsx-a11y/iframe-has-title */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import styles from './Contact.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 // import { Link } from 'react-router-dom';
+import { faDribbble, faFacebookF, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { Col, Container, Row } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import useValidate from '../../components/Hook/useValidate';
-import { Col, Container, Row } from 'react-bootstrap';
-import Toast from '../../components/Toastify';
-import { useDispatch } from 'react-redux';
 import { addContact } from '../../redux/slice/userSlice';
-import { faDribbble, faFacebookF, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
 const cx = classNames.bind(styles);
 function Contact(props) {
     const dispatch = useDispatch();
@@ -38,8 +37,6 @@ function Contact(props) {
         register,
         handleSubmit,
         reset,
-        setValue,
-        clearErrors,
         formState: { errors },
     } = useValidate(options);
 

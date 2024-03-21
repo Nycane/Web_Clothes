@@ -1,7 +1,6 @@
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react/headless';
-import Image from '../../Img';
-import { faCircleXmark, faXmark } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -10,6 +9,7 @@ import 'tippy.js/dist/tippy.css';
 import { ROUTES_PATHS } from '../../../constants';
 import cartSlice from '../../../redux/slice/cartSlice';
 import { formatPrice } from '../../../utils/myUtils';
+import Image from '../../Img';
 import Popover from '../Popover';
 import styles from './PopoverCart.module.scss';
 // import { useState } from 'react';

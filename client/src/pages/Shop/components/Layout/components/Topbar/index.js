@@ -1,14 +1,10 @@
 import classNames from 'classnames/bind';
-import styles from './Topbar.module.scss';
-import SideBar from '../Sidebar';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSliders } from '@fortawesome/free-solid-svg-icons';
-import { memo, useState } from 'react';
-import CustomModal from '../../../../../../components/Modal/Modal';
+import { memo } from 'react';
 import FilterDropDown from './FilterDropDown';
+import styles from './Topbar.module.scss';
 const cx = classNames.bind(styles);
 function Topbar({ onInSort, onInChangeLayout, layout }) {
-    const [isModal, setIsModal] = useState(false);
+    // const [isModal, setIsModal] = useState(false);
     return (
         <>
             <div className={cx('top-bar')}>
