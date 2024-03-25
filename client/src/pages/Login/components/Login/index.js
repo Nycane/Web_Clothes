@@ -1,7 +1,8 @@
 import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import IconLoading from '../../../../components/Loading/IconLoading/IconLoading';
 import { ACCOUNT_PATHS } from '../../../../constants';
 import { scrollViewToPoint } from '../../../../utils/myUtils';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -14,6 +15,7 @@ function Login({ setToggle, toggle, scrollPosition }) {
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const isLoading = useSelector((state) => state.user.isLoading);
     // Validate form
     const options = {
         email: yup
@@ -35,12 +37,12 @@ function Login({ setToggle, toggle, scrollPosition }) {
         dispatch(login(data))
             .unwrap()
             .then((data) => {
+                reset();
                 navigate(location?.state?.from?.pathname ? `${location.state.from.pathname}` : '/', { replace: true });
             })
             .catch((error) => {
-                console.log(error);
+                reset();
             });
-        reset();
     };
     function handleRedirectGoogle() {
         const url =
@@ -83,7 +85,7 @@ function Login({ setToggle, toggle, scrollPosition }) {
                 lost your password?
             </Link>
             <button type="submit" className={cx('btn-signin')}>
-                Sign In
+                {isLoading ? <IconLoading customColor="white"/> : 'Sign In'}
             </button>
             <button onClick={() => handleSetToogle()} className={cx('btn-next-register')} type="button">
                 Create An Account

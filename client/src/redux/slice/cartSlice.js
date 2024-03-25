@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import Toast from '../../components/Toastify/Toastify';
-const initialState = { listProducts: [], total: 0,totalDiscount:0, isCoupoun: ""};
+import { delay } from '../../utils/myUtils';
+const initialState = { listProducts: [], total: 0,totalDiscount:0, isCoupoun: "",isLoading:false};
 const cartSlice = createSlice({
     name: 'cart',
     initialState,
@@ -32,12 +33,6 @@ const cartSlice = createSlice({
         },
         update(state, action) {
             if (action.payload.type === 'increment') {
-                // state.listProducts = state.listProducts.map((product) => {
-                //     if (product.id === action.payload.id && product.color === action.payload.color && product.size === action.payload.size) {
-                //       return { ...product, quantity: product.quantity + 1 };
-                //     }
-                //     return product;
-                //   });
                 state.listProducts.find((e) => (e.id === action.payload.id && e.color=== action.payload.color && e.size ===action.payload.size ? e.quantity++ : ''));
             } else {
                 state.listProducts.find((e) => (e.id === action.payload.id && e.color=== action.payload.color && e.size ===action.payload.size ? e.quantity-- : ''));
@@ -58,13 +53,22 @@ const cartSlice = createSlice({
         },
        
     },
+    extraReducers: (builder) => {
+        builder.addCase(addToCart.pending, (state, action) => {
+            state.isLoading= true;
+        });
+        builder.addCase(addToCart.fulfilled, (state, action) => {
+            state.isLoading = false;
+        });
+    },
 });
-const addToCart = createAsyncThunk('cart/addToCart',(payload,{dispatch})=>{
+const addToCart = createAsyncThunk('cart/addToCart',async(payload,{dispatch})=>{
+    await delay(700);
     dispatch(cartSlice.actions.add(payload))
     Toast('success',"Add To Cart Success ")
 })
 
-const buyNow = createAsyncThunk('cart/buyNow',(payload,{dispatch})=>{
+const buyNow = createAsyncThunk('cart/buyNow',async(payload,{dispatch})=>{
     dispatch(cartSlice.actions.add(payload))
 })
 export {addToCart,buyNow}

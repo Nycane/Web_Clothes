@@ -69,6 +69,7 @@
                 font-size: 0;
                 white-space: nowrap;
                 transition: all ease 0.4s;
+              
                 &:hover {
                     background-color: var(--bg-brown);
                     .icon-cart,
@@ -84,6 +85,9 @@
                     line-height: 40px;
                     color: #222;
                     font-size: 2rem;
+                }
+                &.isActive{
+                    pointer-events: none !important;
                 }
             }
         }

@@ -43,12 +43,3 @@
         }
     }
 }
-@include tablet-mobile(){
-    .card{
-        & .card-body{
-            & .img{
-
-            }
-        }
-    }
-}

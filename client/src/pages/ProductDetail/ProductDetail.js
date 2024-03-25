@@ -52,7 +52,6 @@ function ProductDetail() {
                     </Col>
                 </Row>
             </Container>
-
             {/* ---------------------Tabs----------------------------- */}
             <Tabs productId={id}></Tabs>
             {/* -------------------Slider product---------------------------------- */}

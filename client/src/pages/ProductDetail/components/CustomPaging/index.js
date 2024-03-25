@@ -7,7 +7,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import Image from '../../../../components/Img';
-import SkeletonLoading from '../../../../components/Loading/Skeleton/Skeleton';
+import SkeletonLoading from '../../../../components/Loading/SkeletonLoading';
 import ImageMagnify from '../ImageMagnify';
 import styles from './CustomPaging.module.scss';
 const cx = classNames.bind(styles);

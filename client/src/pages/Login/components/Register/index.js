@@ -1,12 +1,14 @@
 import classNames from 'classnames/bind';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import Validate from '../../../../components/Hook/useValidate';
 import { register as handleRegister } from '../../../../redux/slice/userSlice';
+import IconLoading from '../../../../components/Loading/IconLoading/IconLoading';
 import { scrollViewToPoint } from '../../../../utils/myUtils';
 import styles from './Register.module.scss';
 const cx = classNames.bind(styles);
 function Register({ scrollPosition,toggle, setToggle }) {
+    const isLoading = useSelector((state)=>state.user.isLoading)
     // Validate form
     const options = {
         fullname: yup
@@ -49,12 +51,13 @@ function Register({ scrollPosition,toggle, setToggle }) {
         dispatch(handleRegister(data))
             .unwrap()
             .then((data) => {
+                reset();
                 setToggle('signin');
             })
             .catch((error) => {
+                reset();
                 console.log('catch register>>', error);
             });
-        reset();
     };
     const handleSetToggle = () => {
         setToggle('signin');
@@ -87,7 +90,7 @@ function Register({ scrollPosition,toggle, setToggle }) {
                 <p className={cx('error')}>{errors.address?.message}</p>
 
                 <button type="submit" className={cx('btn-register')}>
-                    register
+                   { isLoading ? <IconLoading></IconLoading> : "register"}
                 </button>
                 <button
                     onClick={() => {
@@ -96,7 +99,7 @@ function Register({ scrollPosition,toggle, setToggle }) {
                     className={cx('btn-next-signin')}
                     type="button"
                 >
-                    Already has an account
+                  Already has an account
                 </button>
             </form>
         </>

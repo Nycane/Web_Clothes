@@ -11,7 +11,7 @@ export function scrollViewToPoint(scrollIntoViewRef) {
 }
 //delay time
 export function delay(delay) {
-    return new Promise((res) => setTimeout(res, delay));
+    return new Promise((res,rej) => setTimeout(res, delay));
 }
 // formatter date
 export function formatDate(date) {

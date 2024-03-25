@@ -16,6 +16,7 @@ function Search({ onInCloseModal, isModalSearch }) {
     const [productSearch, setProductSearch] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     let searchDebounce = useDebounce(500, search);
+    console.log("Search",search)
     // Làm chậm thời gian gửi kết quả lên api
     useEffect(() => {
         if (!searchDebounce.trim() && !search) {
@@ -77,7 +78,7 @@ function Search({ onInCloseModal, isModalSearch }) {
                 {productSearch.length > 0 &&
                     productSearch.map((e, i) => {
                         return (
-                            <Col key={i} lg={3} md={4} sm={6}>
+                            <Col key={i} lg={3} md={4} sm={6} xs={6}>
                                 <Card
                                     isModalSearch={isModalSearch}
                                     closeModalSearch={onInCloseModal}

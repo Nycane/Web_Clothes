@@ -5,12 +5,16 @@ import userApi from '../../../../../apis/userApi';
 import Toast from '../../../../../components/Toastify';
 import Validate from '../../../../../components/Hook/useValidate';
 import style from './ConfirmPassword.module.scss';
+import { delay } from '../../../../../utils/myUtils';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../../../redux/slice/userSlice';
+import { useState } from 'react';
+import IconLoading from '../../../../../components/Loading/IconLoading/IconLoading';
 const cx = classNames.bind(style);
 function ConfirmPassword({ email }) {
     const navigate = useNavigate();
     const isAuth = useSelector((state) => state.user.isAuth);
+    const [isLoading,setIsLoading] = useState(false)
     const user = useSelector((state) => state.user.info);
     const dispatch = useDispatch();
     const options = {
@@ -37,7 +41,10 @@ function ConfirmPassword({ email }) {
     const onSubmit = async (data) => {
         try {
             let newData = Object.assign(data, { email });
+            setIsLoading(true)
+            await delay(500)
             let result = await userApi.resetPassword(newData);
+            setIsLoading(false)
             Toast('success', result.message);
             isAuth
                 ? dispatch(logout(user))
@@ -74,7 +81,7 @@ function ConfirmPassword({ email }) {
                 <span className={cx('error')}>{errors.confirmPw?.message}</span>
             </div>
 
-            <button className={cx('btn-confirmpw')}>Change</button>
+            <button className={cx('btn-confirmpw')}>{isLoading?<IconLoading></IconLoading>:"Change"}</button>
         </form>
     );
 }

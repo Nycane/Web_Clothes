@@ -2,6 +2,7 @@ import { faFacebookF, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faEye, faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faBusinessTime, faMinus, faPlus, faStar, faTruckFast } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import IconLoading from '../../../../components/Loading/IconLoading/IconLoading';
 import Tippy from '@tippyjs/react';
 import classNames from 'classnames/bind';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -19,13 +20,12 @@ import { addWishList } from '../../../../redux/slice/wishlistSLice';
 import { formatPrice, objectIsEmpty } from '../../../../utils/myUtils';
 import styles from './ProductInfo.module.scss';
 const cx = classNames.bind(styles);
-function ProductInfo({ product, customCss,showQuickView=true }) {
-    console.log(product)
+function ProductInfo({ product, customCss, showQuickView = true }) {
     const navigate = useNavigate();
     const isLoading = useSelector((state) => state.product.isLoading);
-    const carts = useSelector((state) => state.cart.listProducts);
-    const { countView: view, info: userInfo } = useSelector((state) => state.user);
-    const user = useSelector((state) => state.user.info);
+    const { listProducts: carts, isLoading: loadingAdd } = useSelector((state) => state.cart);
+    const { countView: view, info: user} = useSelector((state) => state.user);
+    const {isLoading:loadingWishList} = useSelector((state)=>state.wishlist)
     const [viewCurrent, setViewCurrent] = useState(31);
     const iconEyes = useRef(null);
     const [quantity, setQuantity] = useState(1);
@@ -60,6 +60,10 @@ function ProductInfo({ product, customCss,showQuickView=true }) {
     }
 
     function handleAdd(product) {
+        // If the icon is showing, do not add it
+        if(loadingAdd){
+            return;
+        }
         const productQuantityInCart = carts.find((e) => e.id === product.id && e.color === color && e.size === size);
         // console.log(productQuantityInCart);
         if (productQuantityInCart) {
@@ -81,19 +85,26 @@ function ProductInfo({ product, customCss,showQuickView=true }) {
         } else {
             color && size
                 ? dispatch(addToCart(Object.assign({ quantity, size, color }, product)))
+                      .unwrap()
+                      .then(() => {
+                          setColor('');
+                          setSize('');
+                          setQuantity(1);
+                      })
                 : dispatch(addToCart(Object.assign({ quantity }, product)));
-            setColor('');
-            setSize('');
-            setQuantity(1);
         }
     }
 
     function handleAddWishlist(product) {
-        if (objectIsEmpty(userInfo)) {
+        console.log(loadingWishList)
+        if(loadingWishList){
+            return
+        }
+        if (objectIsEmpty(user)) {
             Toast('warning', 'Please Login To Use Function');
             return;
         }
-        const newData = { productId: product.id, ...userInfo };
+        const newData = { productId: product.id, ...user };
         dispatch(addWishList(newData));
     }
 
@@ -472,7 +483,7 @@ function ProductInfo({ product, customCss,showQuickView=true }) {
                                 disabled: quantityOfProduct === 0,
                             })}
                         >
-                            add to cart
+                            {loadingAdd ? <IconLoading customColor={'white'}></IconLoading> : 'add to cart'}
                         </button>
                     </div>
                     <div className={cx('wishlist')}>
@@ -481,9 +492,10 @@ function ProductInfo({ product, customCss,showQuickView=true }) {
                             onClick={() => handleAddWishlist(product)}
                             className={cx('btn-wishlist', {
                                 isLoading: isLoading,
+                                isActive : loadingWishList
                             })}
                         >
-                            <FontAwesomeIcon icon={faHeart}></FontAwesomeIcon>
+                        {loadingWishList ? <IconLoading></IconLoading>  :  <FontAwesomeIcon icon={faHeart}></FontAwesomeIcon>}
                         </button>
                     </div>
                     <div
@@ -545,61 +557,67 @@ function ProductInfo({ product, customCss,showQuickView=true }) {
                         </li>
                     </ul>
                 </div>
-              { showQuickView  &&
-              <>
-                  <div className={cx('product-meta')}>
-                        <span
-                            className={cx('sku', {
-                                isLoading: isLoading,
-                            })}
-                        >
-                            sku : <span>{`SP00${product?.id}`}</span>
-                        </span>
-                        <span
-                            className={cx('category', {
-                                isLoading: isLoading,
-                            })}
-                        >
-                            category : <Link to={`/shop/product-category/${product?.categoryName?.toLowerCase()}`}>{product?.categoryName}</Link>
-                        </span>
-                        <span
-                            className={cx('brand', {
-                                isLoading: isLoading,
-                            })}
-                        >
-                            Brand : <Link to={`/shop/product-brand/${product?.brandName?.toLowerCase()}`}>{product?.brandName}</Link>
-                        </span>
-                        <span
-                            className={cx('tag', {
-                                isLoading: isLoading,
-                            })}
-                        >
-                            tags : {product?.price_discount > 0 ? <span>SALE</span> : <span>HOT</span>}
-                        </span>
-                    </div>
-                    <div
-                        className={cx('social-icon', {
-                            isLoading: isLoading,
-                        })}
-                    >
-                        <span className={cx('text')}>Share :</span>
-                        <div className={cx('social-share')}>
-                            <TwitterShareButton
-                                media="https://wpbingosite.com/wordpress/mafoil/wp-content/uploads/2022/12/banner-34.jpg"
-                                url={`https://mafoil.netlify.app/product/${product?.id}`}
+                {showQuickView && (
+                    <>
+                        <div className={cx('product-meta')}>
+                            <span
+                                className={cx('sku', {
+                                    isLoading: isLoading,
+                                })}
                             >
-                                <FontAwesomeIcon className={cx('tw-icon')} icon={faTwitter}></FontAwesomeIcon>
-                            </TwitterShareButton>
-                            <FacebookShareButton
-                                media="https://wpbingosite.com/wordpress/mafoil/wp-content/uploads/2022/12/banner-34.jpg"
-                                url={`https://mafoil.netlify.app/product/${product?.id}`}
+                                sku : <span>{`SP00${product?.id}`}</span>
+                            </span>
+                            <span
+                                className={cx('category', {
+                                    isLoading: isLoading,
+                                })}
                             >
-                                <FontAwesomeIcon className={cx('fb-icon')} icon={faFacebookF}></FontAwesomeIcon>
-                            </FacebookShareButton>
+                                category :{' '}
+                                <Link to={`/shop/product-category/${product?.categoryName?.toLowerCase()}`}>
+                                    {product?.categoryName}
+                                </Link>
+                            </span>
+                            <span
+                                className={cx('brand', {
+                                    isLoading: isLoading,
+                                })}
+                            >
+                                Brand :{' '}
+                                <Link to={`/shop/product-brand/${product?.brandName?.toLowerCase()}`}>
+                                    {product?.brandName}
+                                </Link>
+                            </span>
+                            <span
+                                className={cx('tag', {
+                                    isLoading: isLoading,
+                                })}
+                            >
+                                tags : {product?.price_discount > 0 ? <span>SALE</span> : <span>HOT</span>}
+                            </span>
                         </div>
-                    </div>
-              </>
-                }
+                        <div
+                            className={cx('social-icon', {
+                                isLoading: isLoading,
+                            })}
+                        >
+                            <span className={cx('text')}>Share :</span>
+                            <div className={cx('social-share')}>
+                                <TwitterShareButton
+                                    media="https://wpbingosite.com/wordpress/mafoil/wp-content/uploads/2022/12/banner-34.jpg"
+                                    url={`https://mafoil.netlify.app/product/${product?.id}`}
+                                >
+                                    <FontAwesomeIcon className={cx('tw-icon')} icon={faTwitter}></FontAwesomeIcon>
+                                </TwitterShareButton>
+                                <FacebookShareButton
+                                    media="https://wpbingosite.com/wordpress/mafoil/wp-content/uploads/2022/12/banner-34.jpg"
+                                    url={`https://mafoil.netlify.app/product/${product?.id}`}
+                                >
+                                    <FontAwesomeIcon className={cx('fb-icon')} icon={faFacebookF}></FontAwesomeIcon>
+                                </FacebookShareButton>
+                            </div>
+                        </div>
+                    </>
+                )}
             </div>
         </>
     );

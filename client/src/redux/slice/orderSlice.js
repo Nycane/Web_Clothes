@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import orderApi from '../../apis/orderApi';
+import { delay } from '../../utils/myUtils';
 import Toast from '../../components/Toastify';
 import apiService from '../../utils/apiService';
 const initialState = {
@@ -9,20 +10,24 @@ const initialState = {
     shipping: '',
     info: {},
     isSuccess: false,
-    isLoading: true,
+    isLoading: false,
 };
 const orderSlice = createSlice({
     name: 'order',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(getResultPayment.pending, (state, action) => {
-            state.isLoading = true;
-        });
+        // builder.addCase(getResultPayment.pending, (state, action) => {
+        //     // state.isLoading = true;
+        // });
         builder.addCase(getResultPayment.fulfilled, (state, action) => {
             if (action?.payload?.data?.rspCode === '00') {
                 state.orderDetail = action.payload.data;
+                // state.isLoading = false;
             }
+        });
+        builder.addCase(addOrder.pending, (state, action) => {
+            state.isLoading = true;
         });
         builder.addCase(getOrders.pending, (state, action) => {
             state.isLoading = true;
@@ -32,14 +37,30 @@ const orderSlice = createSlice({
             state.isLoading = false;
             state.orders = action?.payload?.data;
         });
+        builder.addCase(getOrders.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+        builder.addCase(getOrderDetailById.pending, (state, action) => {
+            state.orderDetail = action?.payload?.data;
+            state.isLoading = true;
+        });
         builder.addCase(getOrderDetailById.fulfilled, (state, action) => {
             state.orderDetail = action?.payload?.data;
+            state.isLoading = false;
+        });
+        // Create Payment
+        builder.addCase(createPayment.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(createPayment.fulfilled, (state, action) => {
+            state.isLoading = false;
         });
     },
 });
 
 const addOrder = createAsyncThunk('order/add', async (data, { dispatch }) => {
     try {
+        await delay(500);
         let result = await orderApi.addOrder(data, dispatch);
         Toast('success', 'Checkout Success');
         return result;
@@ -50,6 +71,7 @@ const addOrder = createAsyncThunk('order/add', async (data, { dispatch }) => {
 
 const createPayment = createAsyncThunk('order/createPayment', async (data, { dispatch }) => {
     try {
+        await delay(500);
         let result = await orderApi.createPayment(data, dispatch);
         if (result?.data?.vnpUrl) {
             window.location.href = result.data.vnpUrl;
@@ -66,14 +88,16 @@ const getResultPayment = createAsyncThunk('order/getPayment', async (data, { dis
         }
         return result;
     } catch (error) {
-        apiService.handleApi(error)
+        apiService.handleApi(error);
     }
 });
 const getOrders = createAsyncThunk('order/getOrders', async (data, { dispatch }) => {
+    await delay(500);
     let result = await orderApi.getOrders(data, dispatch);
     return result;
 });
 const getOrderDetailById = createAsyncThunk('order/getOrderDetailById', async (data, { dispatch }) => {
+    await delay(500);
     let result = await orderApi.getOrderDetailById(data, dispatch);
     return result;
 });

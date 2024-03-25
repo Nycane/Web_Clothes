@@ -50,10 +50,19 @@
         position: absolute;
         top: 12px;
         right: 12px;
+        &.isRemove {
+            animation: remove 1s linear infinite;
+        }
         cursor: pointer;
         &:hover {
             color: var(--color-brown);
         }
+    }
+}
+
+@keyframes remove {
+    to {
+        transform: rotate(360deg);
     }
 }
 @include larger-mobile() {

@@ -7,12 +7,15 @@ import cartSlice from '../../../../redux/slice/cartSlice';
 import { formatPrice } from '../../../../utils/myUtils';
 import styles from './CartLeft.module.scss';
 import { useEffect } from 'react';
+import IconLoading from '../../../../components/Loading/IconLoading/IconLoading';
 const cx = classNames.bind(styles);
 function CartLeft({ checkout, products, btnSubmit, register, errors }) {
     const dispatch = useDispatch();
     const totalPriceCart = useSelector((state) => state.cart.total);
     const totalDiscount = useSelector((state) => state.cart.totalDiscount);
     const isCoupoun = useSelector((state) => state.cart.isCoupoun);
+    const isLoading = useSelector((state)=>state.order.isLoading)
+    console.log("isLoading",isLoading);
     function handleRemoveCoupoun() {
         dispatch(cartSlice.actions.setCoupoun(''));
     }
@@ -184,7 +187,7 @@ function CartLeft({ checkout, products, btnSubmit, register, errors }) {
                 ) : (
                     <div className={cx('btn-checkout')}>
                         <button onClick={(e) => handleSubmit(e)} className={cx('btn')}>
-                            Place Order
+                           {isLoading ? <IconLoading></IconLoading> :  "Place Order"}
                         </button>
                     </div>
                 )}

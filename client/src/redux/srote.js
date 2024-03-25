@@ -15,14 +15,19 @@ const saveSubset = createTransform(
     (inboundState, key) => {
         if (key === 'user') {
             let info = {};
-            const { listComments, verifyUser, countView, isLoading, ...otherProps } = inboundState;
+
+            const { listComments, verifyUser, countView,isLoading, ...otherProps } = inboundState;
             // No save other properties of user to localStroagge , when retrieving user info
             const user = otherProps.info;
             if (user && user.accessToken) {
-                info = { id: user.id,accessToken: user.accessToken };
+                info = { id: user.id, accessToken: user.accessToken };
             }
             return { ...otherProps, info };
+        } else if (key === 'cart') {
+            const { isLoading, ...otherProps } = inboundState;
+            return otherProps;
         }
+
         return inboundState;
     },
     // transform state being rehydrated

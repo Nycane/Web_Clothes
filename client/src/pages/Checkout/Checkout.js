@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import SkeletonLoading from '../../components/Loading/SkeletonLoading';
 import * as yup from 'yup';
 import Validate from '../../components/Hook/useValidate';
 import { addOrder, createPayment } from '../../redux/slice/orderSlice';
@@ -16,7 +17,7 @@ function Checkout() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const carts = useSelector((state) => state.cart);
-    const user = useSelector((state) => state.user.info);
+    const { info: user, isLoading } = useSelector((state) => state.user);
     const isAuth = useSelector((state) => state.user.isAuth);
     const [addressOther, setAddressOther] = useState(false);
     const btnSubmit = useRef();
@@ -133,12 +134,19 @@ function Checkout() {
                                             <label htmlFor="fullname">
                                                 Full name <span className={cx('required')}>*</span>
                                             </label>
-                                            <input
-                                                disabled={!addressOther}
-                                                {...register('fullname')}
-                                                type="text"
-                                                id="fullname"
-                                            ></input>
+                                            {!isLoading ? (
+                                                <input
+                                                    className={cx('input')}
+                                                    disabled={!addressOther}
+                                                    {...register('fullname')}
+                                                    type="text"
+                                                    id="fullname"
+                                                ></input>
+                                            ) : (
+                                                <SkeletonLoading
+                                                    className={cx('input')}
+                                                ></SkeletonLoading>
+                                            )}
                                             <span className={cx('error')}>{errors.fullname?.message}</span>
                                         </p>
 
@@ -146,13 +154,17 @@ function Checkout() {
                                             <label htmlFor="address">
                                                 Address <span className={cx('required')}>*</span>
                                             </label>
-                                            <input
+                                          {!isLoading ?  <input
+                                                className={cx('input')}
                                                 disabled={!addressOther}
                                                 {...register('address')}
                                                 type="text"
                                                 id="address"
                                                 placeholder="House number and street name"
                                             ></input>
+                                            :
+                                            <SkeletonLoading className={cx('input')}></SkeletonLoading>
+                                        }
                                             <span className={cx('error')}>{errors.address?.message}</span>
                                         </p>
 
@@ -160,12 +172,16 @@ function Checkout() {
                                             <label htmlFor="phone">
                                                 Phone <span className={cx('required')}>*</span>
                                             </label>
-                                            <input
+                                           {!isLoading ? <input
+                                                className={cx('input')}
                                                 disabled={!addressOther}
                                                 {...register('phone')}
                                                 type="text"
                                                 id="phone"
                                             ></input>
+                                        :
+                                        <SkeletonLoading className={cx('input')}></SkeletonLoading>
+                                        }
                                             <span className={cx('error')}>{errors.phone?.message}</span>
                                         </p>
 
@@ -173,12 +189,16 @@ function Checkout() {
                                             <label htmlFor="email">
                                                 Email Address <span className={cx('required')}>*</span>
                                             </label>
-                                            <input
+                                          { !isLoading ? <input
+                                                className={cx('input')}
                                                 disabled={!addressOther}
                                                 {...register('email')}
                                                 type="text"
                                                 id="email"
                                             ></input>
+                                            :
+                                            <SkeletonLoading className={cx('input')}></SkeletonLoading>
+                                        }
                                             <span className={cx('error')}>{errors.email?.message}</span>
                                         </p>
 
@@ -192,13 +212,13 @@ function Checkout() {
                                         </p>
                                         <button ref={btnSubmit} type="submit"></button>
                                         {(!user.email || !user.phone || !user.address || !user.userName) && (
-                                        <Link to="/account/detail" className={cx('update-user')}>
-                                            Update info ?
-                                        </Link>
-                                    )}
+                                            <Link to="/account/detail" className={cx('update-user')}>
+                                                Update info ?
+                                            </Link>
+                                        )}
                                     </form>
                                     {/* form default */}
-                                    
+
                                     <p className={cx('field-item')}>
                                         <input
                                             onChange={(e) => setAddressOther(e.target.checked)}
@@ -225,7 +245,11 @@ function Checkout() {
                         <Col lg={12} md={12}>
                             <div className={cx('redirect-login')}>
                                 <h1 className={cx('redirect-title')}>Please Login Checkout</h1>
-                                <Link to ='/login' state={{from:{pathname:"/checkout"}}}  className={cx('redirect-btn')}>
+                                <Link
+                                    to="/login"
+                                    state={{ from: { pathname: '/checkout' } }}
+                                    className={cx('redirect-btn')}
+                                >
                                     Login
                                 </Link>
                             </div>

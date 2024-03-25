@@ -108,7 +108,7 @@ function SliderProducts({ title, text = '', slShow = 5, titleCenter = false, pro
                             <div className={cx('slider-wrap')}>
                                 <Slider {...settings}>
                                     {products?.map((e, i) => {
-                                        return <Card isLoading={isLoading} product={e} key={e.id}></Card>;
+                                        return <Card isLoading={isLoading} index={i} product={e} key={e.id}></Card>;
                                     })}
                                 </Slider>
                             </div>

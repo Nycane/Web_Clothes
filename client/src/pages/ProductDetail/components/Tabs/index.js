@@ -1,11 +1,4 @@
-import {
-    faFaceAngry,
-    faFaceGrinHearts,
-    faFaceKissWinkHeart,
-    faFaceSmile,
-    faSmileWink,
-    faStar,
-} from '@fortawesome/free-solid-svg-icons';
+import {faFaceAngry,faFaceGrinHearts,faFaceKissWinkHeart,faFaceSmile,faSmileWink,faStar,} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
 import classNames from 'classnames/bind';
@@ -19,6 +12,7 @@ import CustomModal from '../../../../components/Modal';
 import Toast from '../../../../components/Toastify';
 import { ROUTES_PATHS } from '../../../../constants';
 import { commentUser, deleteComment } from '../../../../redux/slice/userSlice';
+import IconLoading from '../../../../components/Loading/IconLoading/IconLoading';
 import { scrollViewToPoint } from '../../../../utils/myUtils';
 import Review from './Review';
 import Star from './Star';
@@ -30,10 +24,10 @@ function Tabs({productId}) {
     const [toggle, setToggle] = useState(1);
     const [star, setStar] = useState(0);
     const [isStar, setiStar] = useState(false);
+    const [activeCmt,setActiveCmt] = useState(null);
     const [storageStar, setStorageStar] = useState();
     const [comment, setComment] = useState('');
-    const user = useSelector((state) => state.user.info);
-    const listComments = useSelector((state) => state.user.listComments);
+    const {info:user,listComments,isLoading,isAuth} = useSelector((state) => state.user);
     const view = useSelector((state) => state.user?.countView);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const scrollPosition= useRef(null);
@@ -59,11 +53,11 @@ function Tabs({productId}) {
     // Kiểm tra và gửi comment
     function handleSubmit() {
         if (!isStar) {
-            Toast('error', 'Please Select Rating');
+            Toast('warning', 'Please Select Rating');
             return;
         }
         if (!comment.trim()) {
-            Toast('error', 'Please Enter A Review');
+            Toast('warning', 'Please Enter A Review');
             return;
         }
         setiStar(false);
@@ -80,7 +74,8 @@ function Tabs({productId}) {
         );
     }
     // remove comment
-    function handleDeleteComment(id) {
+    function handleDeleteComment(id,indexCmt) {
+        setActiveCmt(indexCmt)
         const isDelete = window.confirm('Are you sure to delete?');
         isDelete && dispatch(deleteComment({productId, commentId: id,...user}));
         scrollViewToPoint(scrollPosition)
@@ -104,7 +99,7 @@ function Tabs({productId}) {
                 <Container>
                     <Row>
                         <Col lg={12} md={12}>
-                            {user?.id ? (
+                            {isAuth ? (
                                 <div className={cx('comment-wrap')}>
                                     <h5 className={cx('comment-title')}> add a review</h5>
                                     <div className={cx('comment-rating')}>
@@ -163,7 +158,7 @@ function Tabs({productId}) {
                                         maxLength={500}
                                     ></textarea>
                                     <button onClick={handleSubmit} className={cx('btn-submit')}>
-                                        submit
+                                     {isLoading ? <IconLoading></IconLoading> : "submit"}
                                     </button>
                                 </div>
                             ) : (
@@ -236,7 +231,7 @@ function Tabs({productId}) {
                                                 productId={productId}
                                                 user={user}
                                                 onInDeleteComment={handleDeleteComment}
-                                                iconStar={<FontAwesomeIcon icon={faStar}></FontAwesomeIcon>}
+                                                activeCmt={activeCmt}
                                             />
                                         )}
                                     </div>

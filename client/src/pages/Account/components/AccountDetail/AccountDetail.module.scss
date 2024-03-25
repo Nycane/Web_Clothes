@@ -28,10 +28,11 @@
     }
 }
 
-.btn-changepw{
+.btn-change{
     color: var(--bg-white);
     background: black;
-    padding: 0 50px;
+    text-align: center;
+    min-width: 205px;
     line-height: 50px;
     cursor: pointer;
     border: 0;

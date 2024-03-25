@@ -4,7 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
 import classNames from 'classnames/bind';
 import React, { useState } from 'react';
+import { delay } from '../../../utils/myUtils';
 import { Col, Container, Row } from 'react-bootstrap';
+import IconLoading from '../../Loading/IconLoading/IconLoading';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import 'tippy.js/animations/scale.css';
@@ -23,19 +25,12 @@ function Card({ closeModalSearch, isModalSearch, product, options = true, isLoad
     const dispatch = useDispatch();
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [visible, setVisible] = useState(false);
+    const [activeProduct, setActiveProduct] = useState(null);
     const user = useSelector((state) => state.user.info);
-    // const isLoading = useSelector((state)=>state.product.isLoading)
-    // const totalProductQuantity = useMemo(() => {
-    //     // console.log("vo may lan")
-    //     return product?.variant?.reduce((i, e) => {
-    //         return (i += e.quantity);
-    //     }, 0);
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [product]);
-    // console.log(totalProductQuantity);
     const totalProductQuantity = product?.variant?.reduce((i, e) => {
         return (i += e.quantity);
     }, 0);
+
     // close modal search when  page redirect
     function handleCloseModalSearch() {
         isModalSearch && closeModalSearch();
@@ -56,11 +51,17 @@ function Card({ closeModalSearch, isModalSearch, product, options = true, isLoad
 
     function handleAddWishlish(product) {
         if (objectIsEmpty(user)) return Toast('warning', 'Please Login To Use Function');
+        setActiveProduct(product.id);
+        console.log(product);
         const newData = {
             productId: product.id,
             ...user,
         };
-        dispatch(addWishList(newData));
+        dispatch(addWishList(newData))
+            .unwrap()
+            .then(() => {
+                setActiveProduct(null);
+            });
     }
 
     function openModal() {
@@ -81,7 +82,11 @@ function Card({ closeModalSearch, isModalSearch, product, options = true, isLoad
                         </Col>
                         <Col lg={6} md={6} style={{ padding: '0' }} className={cx('product-detail-wrap')}>
                             <div className={cx('product-detail-modal')}>
-                                <ProductInfo showQuickView={false} customCss={cx('custom-safe-checkout')} product={product}></ProductInfo>
+                                <ProductInfo
+                                    showQuickView={false}
+                                    customCss={cx('custom-safe-checkout')}
+                                    product={product}
+                                ></ProductInfo>
                             </div>
                         </Col>
                     </Row>
@@ -122,8 +127,20 @@ function Card({ closeModalSearch, isModalSearch, product, options = true, isLoad
                                     </Tippy>
                                 )}
                                 <Tippy animation="scale" content={<span>Wishlist</span>}>
-                                    <span onClick={() => handleAddWishlish(product)} className={cx('btn-wishlist')}>
-                                        <FontAwesomeIcon className={cx('icon-heart')} icon={faHeart}></FontAwesomeIcon>
+                                    <span
+                                        onClick={() => handleAddWishlish(product)}
+                                        className={cx('btn-wishlist', {
+                                            isActive: product.id === activeProduct,
+                                        })}
+                                    >
+                                        {product.id === activeProduct ? (
+                                            <IconLoading customCss={cx('icon-heart')}></IconLoading>
+                                        ) : (
+                                            <FontAwesomeIcon
+                                                className={cx('icon-heart')}
+                                                icon={faHeart}
+                                            ></FontAwesomeIcon>
+                                        )}
                                     </span>
                                 </Tippy>
                                 <Tippy animation="scale" content="Quick View" visible={visible}>
@@ -145,24 +162,26 @@ function Card({ closeModalSearch, isModalSearch, product, options = true, isLoad
                                 </Tippy>
                             </div>
                         )}
-                        {product.price_discount > 0 ? (
-                            <div
-                                className={cx('product-sale', {
-                                    isLoading: isLoading,
-                                })}
-                            >
-                                Sale
-                            </div>
-                        ) : (
-                            <div
-                                className={cx('product-hot', {
-                                    isLoading: isLoading,
-                                })}
-                            >
-                                Hot
-                            </div>
-                        )}
-                        {totalProductQuantity === 0 && (
+                        {product.price_discount > 0
+                            ? options && (
+                                  <div
+                                      className={cx('product-sale', {
+                                          isLoading: isLoading,
+                                      })}
+                                  >
+                                      Sale
+                                  </div>
+                              )
+                            : options && (
+                                  <div
+                                      className={cx('product-hot', {
+                                          isLoading: isLoading,
+                                      })}
+                                  >
+                                      Hot
+                                  </div>
+                              )}
+                        {options && totalProductQuantity === 0 && (
                             <div
                                 className={cx('product-out-of-stock', {
                                     isLoading: isLoading,

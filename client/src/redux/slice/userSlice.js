@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { delay } from '../../utils/myUtils';
 import userApi from '../../apis/userApi';
 import Toast from '../../components/Toastify';
 import apiService from '../../utils/apiService';
@@ -32,6 +33,7 @@ const userSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
+        // Login
         builder.addCase(login.pending, (state, action) => {
             state.isLoading = true;
         });
@@ -40,33 +42,67 @@ const userSlice = createSlice({
             state.info = action.payload.data;
             state.isAuth = true;
         });
+        builder.addCase(login.rejected, (state, action) => {
+            state.isAuth = false;
+            state.isLoading = false;
+        });
+        // Register
         builder.addCase(register.pending, (state, action) => {
             state.isLoading = true;
         });
         builder.addCase(register.fulfilled, (state, action) => {
             state.isLoading = false;
         });
+        builder.addCase(register.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+        // Logout
+        builder.addCase(logout.pending, (state, action) => {
+            state.isAuth = true;
+            state.isLogout = true;
+        });
         builder.addCase(logout.fulfilled, (state, action) => {
             state.info = {};
             state.isAuth = false;
+            state.isLogout = false;
         });
+        builder.addCase(logout.rejected, (state, action) => {
+            state.isAuth = true;
+            state.isLogout = false;
+        });
+        // Update User
         builder.addCase(updateUser.pending, (state, action) => {
-            state.isLoading = true;
+            state.isUpdateUser = true;
         });
         builder.addCase(updateUser.fulfilled, (state, action) => {
             state.info = {
                 ...state.info,
                 ...action.payload.data,
             };
-            state.isLoading = false;
+            state.isUpdateUser = false;
         });
         builder.addCase(updateUser.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isUpdateUser= false;
         });
+        // Get Comments
         builder.addCase(getComments.fulfilled, (state, action) => {
+            console.log('co vo get cmt k fullfield');
+            state.isLoading = false;
             state.listComments = action.payload?.data?.listComments;
             state.countView = action.payload?.data?.countFeedbackProduct;
         });
+        // Comment
+        builder.addCase(commentUser.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        //  Delete comment
+        builder.addCase(deleteComment.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(deleteComment.rejected,(state, action) => {
+            console.log("co vo reject delete khong")
+        });
+        // Login Social
         builder.addCase(loginSocial.fulfilled, (state, action) => {
             state.info = action.payload?.data;
             state.verifySocialUser = true;
@@ -75,8 +111,26 @@ const userSlice = createSlice({
         builder.addCase(loginSocial.rejected, (state, action) => {
             state.verifySocialUser = false;
         });
+        // Get User Info
+        builder.addCase(getUserInfo.pending, (state, action) => {
+            state.isLoading = true;
+        });
         builder.addCase(getUserInfo.fulfilled, (state, action) => {
             state.info = { ...state.info, ...action?.payload?.data };
+            state.isLoading = false;
+        });
+        builder.addCase(getUserInfo.rejected, (state, action) => {
+            state.isLoading = true;
+        });
+        // Change Pw
+        builder.addCase(changePw.pending, (state, action) => {
+            state.isChangePw = true;
+        });
+        builder.addCase(changePw.fulfilled, (state, action) => {
+            state.isChangePw = false;
+        });
+        builder.addCase(changePw.rejected, (state, action) => {
+            state.isChangePw = false;
         });
     },
 });
@@ -84,6 +138,7 @@ const userSlice = createSlice({
 // LOGIN
 const login = createAsyncThunk('user/login', async (data) => {
     try {
+        await delay(500);
         const result = await userApi.login(data);
         Toast('success', 'Login Success');
         return result;
@@ -96,18 +151,19 @@ const login = createAsyncThunk('user/login', async (data) => {
 // REGISTER
 const register = createAsyncThunk('user/register', async (data) => {
     try {
+        await delay(500);
         const result = await userApi.register(data);
         Toast('success', 'Register Success');
         return result;
-        // console.log("result register",result)
     } catch (error) {
         apiService.handleApi(error);
     }
 });
 
 // LOGOUT
-const logout = createAsyncThunk('user/logout', async (data,{dispatch}) => {
+const logout = createAsyncThunk('user/logout', async (data, { dispatch }) => {
     try {
+        await delay(500);
         const result = await userApi.logout(data);
         Toast('success', 'Logout Success');
         return result;
@@ -119,6 +175,8 @@ const logout = createAsyncThunk('user/logout', async (data,{dispatch}) => {
 // CHANGEPASSWORD
 const changePw = createAsyncThunk('user/changePw', async (data, { dispatch }) => {
     try {
+        await delay(500);
+        console.log('change pw');
         const result = await userApi.changePw(data, dispatch);
         Toast('success', 'Change Password Success');
         return result;
@@ -131,6 +189,7 @@ const changePw = createAsyncThunk('user/changePw', async (data, { dispatch }) =>
 // UPDATE USER
 const updateUser = createAsyncThunk('user/update', async (data, { dispatch }) => {
     try {
+        await delay(500);
         const result = await userApi.updateUser(data, dispatch);
         Toast('success', 'Update Success');
         return result;
@@ -143,10 +202,13 @@ const updateUser = createAsyncThunk('user/update', async (data, { dispatch }) =>
 // COMMENT USER
 const commentUser = createAsyncThunk('user/comment', async (data, { dispatch }) => {
     try {
+        await delay(500);
         const result = await userApi.commentUser(data, dispatch);
         const token = getLatestToken();
-        dispatch(getComments({ ...data, ...token }));
-        Toast('success', 'Comment Success');
+        dispatch(getComments({ ...data, ...token }))
+        .then(() => {
+            Toast('success', 'Comment Success');
+        });
         return result;
     } catch (error) {
         console.log(error);
@@ -163,10 +225,12 @@ const getComments = createAsyncThunk('user/getComments', async (data, { dispatch
 // DELETE COMMENT
 const deleteComment = createAsyncThunk('user/deleteComment', async (data, { dispatch }) => {
     try {
+        await delay(500);
         const reuslt = await userApi.deleteComment(data, dispatch);
         const token = getLatestToken();
-        dispatch(getComments({ ...data, ...token }));
-        Toast('success', 'Delete Comment Success');
+        dispatch(getComments({ ...data, ...token })).then(() => {
+            Toast('success', 'Delete Comment Success');
+        });
         return reuslt;
     } catch (error) {
         console.log(error);
@@ -177,6 +241,7 @@ const deleteComment = createAsyncThunk('user/deleteComment', async (data, { disp
 // Get User Info
 const getUserInfo = createAsyncThunk('user/getUserInfo', async (data, { dispatch }) => {
     try {
+        await delay(300)
         const result = await userApi.getUserInfo(data, dispatch);
         return result;
     } catch (error) {

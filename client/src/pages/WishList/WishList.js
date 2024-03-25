@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { faFacebookF, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -17,23 +18,26 @@ import { addToCart } from '../../redux/slice/cartSlice';
 import { removeWishList } from '../../redux/slice/wishlistSLice';
 import { formatDate, formatPrice } from '../../utils/myUtils';
 import styles from './WishList.module.scss';
+import { useState } from 'react';
 const cx = classNames.bind(styles);
 function WishList() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.info);
-    const wishLists = useSelector((state) => state.wishlist.listProducts);
+    const [activeProduct,setActiveProduct] = useState(null);
+    const { listProducts: wishLists} = useSelector((state) => state.wishlist);
     // Xóa sản phẩm
     function handleRemove(productId) {
+        setActiveProduct(productId)
         const newData = { productId, ...user };
         dispatch(removeWishList(newData));
     }
     // Thêm sản phẩm
     function handeAddToCart(product) {
-        const newProduct = { "quantity": 1,...product};
+        const newProduct = { quantity: 1, ...product };
         dispatch(addToCart(newProduct));
     }
     return (
-        <Container style={{marginBottom:90}}>
+        <Container style={{ marginBottom: 90 }}>
             <Row>
                 <Col lg={12} md={12}>
                     {wishLists?.length > 0 && (
@@ -46,13 +50,18 @@ function WishList() {
                                                 <td className={cx('wishlist-remove')}>
                                                     <div
                                                         onClick={() => handleRemove(e.id)}
-                                                        className={cx('removeItem')}
+                                                        className={cx('remove-item', {})}
                                                     >
-                                                        x
+                                                        <FontAwesomeIcon
+                                                            className={cx('remove-icon', {
+                                                                isRemove:e.id === activeProduct,
+                                                            })}
+                                                            icon={faXmark}
+                                                        ></FontAwesomeIcon>
                                                     </div>
                                                 </td>
                                                 <td className={cx('wishlist-img')}>
-                                                    <Link  to={`/product/${e.id}`}>
+                                                    <Link to={`/product/${e.id}`}>
                                                         <Image width="80px" height="auto" alt="" src={e.image}></Image>
                                                     </Link>
                                                 </td>

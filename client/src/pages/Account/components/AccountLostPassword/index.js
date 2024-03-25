@@ -1,15 +1,14 @@
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
-import { delay } from '../../../../utils/myUtils';
 import userApi from '../../../../apis/userApi';
 import Validate from '../../../../components/Hook/useValidate';
+import IconLoading from '../../../../components/Loading/IconLoading/IconLoading';
 import Toast from '../../../../components/Toastify';
 import userSlice from '../../../../redux/slice/userSlice';
+import { delay } from '../../../../utils/myUtils';
 import style from './AccountLostPassword.module.scss';
 import ConfirmOtp from './ConfirmOtp';
 import ConfirmPassWord from './ConfirmPassword';
@@ -36,7 +35,7 @@ function AccountLostPassword() {
         try {
             setIsLoading(true)
             let result = await userApi.forgetPassword(data);
-            await delay(1000)
+            await delay(500)
             setIsLoading(false)
             result?.data?.email && setEmail(result.data.email);
             Toast('success', result.message,"1500");
@@ -68,7 +67,7 @@ function AccountLostPassword() {
                                     <span className={cx('error')}>{errors.email?.message}</span>
                                     <button className={cx('btn-reset-password')}>
                                         {isLoading ? (
-                                            <FontAwesomeIcon className={cx('loading-icon')} icon={faSpinner} />
+                                           <IconLoading/>
                                         ) : (
                                             <> reset password</>
                                         )}

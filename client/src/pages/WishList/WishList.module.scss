@@ -16,15 +16,24 @@
         border-left: 1px solid #ccc;
     }
     & .wishlist-remove {
-        & .removeItem {
+        & .remove-item {
             font-size: 3rem;
             color: #666;
             font-weight: 200;
-            transition: all 0.4s ease;
-            &:hover {
-                transform: rotate(90deg);
-                color: var(--color-brown);
-                cursor: pointer;
+            & .remove-icon {
+                transition: all 0.4s ease;
+                font-size: 1.4rem;
+                &:hover {
+                    transform: rotate(90deg);
+                    color: var(--color-brown);
+                    cursor: pointer;
+                    &.isRemove {
+                        animation: remove 1s linear infinite;
+                    }
+                }
+                &.isRemove {
+                    animation: remove 1s linear infinite;
+                }
             }
         }
     }
@@ -43,6 +52,11 @@
             margin-top: 12px;
             color: #666666;
         }
+    }
+}
+@keyframes remove {
+    to {
+        transform: rotate(360deg);
     }
 }
 .btn-add {
@@ -104,8 +118,8 @@
     }
 }
 @include tablet-mobile() {
-     .wishlist-wrap {
-       & .wishlist-content {
+    .wishlist-wrap {
+        & .wishlist-content {
             text-align: start;
         }
     }

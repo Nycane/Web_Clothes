@@ -4,13 +4,14 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import useValidate from '../../../../components/Hook/useValidate';
+import IconLoading from '../../../../components/Loading/IconLoading/IconLoading';
 import { updateUser } from '../../../../redux/slice/userSlice';
 import styles from './AccountDetail.module.scss';
-import Skeleton from '../../../../components/Loading/Skeleton';
+import Skeleton from '../../../../components/Loading/SkeletonLoading';
 import AccountAvatar from './AccountAvatar';
 const cx = classNames.bind(styles);
 function AccountDetail({ user }) {
-    const isLoading = useSelector((state) => state.user.isLoading);
+    const isLoading = useSelector((state) => state.user.isUpdateUser);
     const dispatch = useDispatch();
     const options = {
         email: yup.string().trim().email().required('This field cannot be empty'),
@@ -140,13 +141,9 @@ function AccountDetail({ user }) {
                             )}
                             <span className={cx('error')}>{errors.address?.message}</span>
                         </div>
-                        {!isLoading ? (
-                            <button className={cx('btn-changepw')} type="submit">
-                                save changes
-                            </button>
-                        ) : (
-                            <Skeleton width={205} height={50} className={cx('btn-changepw-skeleton')}></Skeleton>
-                        )}
+                        <button className={cx('btn-change')} type="submit">
+                            {isLoading ? <IconLoading></IconLoading> : 'save changes'}
+                        </button>
                     </form>
                 </Col>
             </Row>

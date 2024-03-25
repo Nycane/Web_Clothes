@@ -548,6 +548,7 @@ $--color-df: #666;
             &.disabled {
                 pointer-events: none;
             }
+            
         }
     }
     & .wishlist {
@@ -568,6 +569,9 @@ $--color-df: #666;
             cursor: pointer;
             &.isLoading {
                 @include loading();
+            }
+            &.isActive{
+                pointer-events: none;
             }
             &:hover {
                 background-color: var(--hover-brown);

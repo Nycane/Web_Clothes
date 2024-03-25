@@ -111,6 +111,7 @@
     }
     & .btn-submit {
         padding: 16px 48px;
+        min-width: 150px;
         background-color: var(--bg-black);
         color: var(--color-white);
         text-transform: uppercase;
@@ -187,5 +188,11 @@
         height: 100vh;
         left: 10%;
         animation: fade 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+    }
+    .comment-wrap{
+        & .btn-submit{
+            font-weight: 500;
+            width: 100%;
+        }
     }
 }
