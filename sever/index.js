@@ -3,7 +3,6 @@ const initRoutes = require("./routes");
 const cors = require("cors");
 require("dotenv").config();
 const passport = require("passport");
-// const cookieParser = require('cookie-parser')
 const cookieParser = require("cookie-parser");
 require("./configs/passport");
 const app = express();
@@ -19,6 +18,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 app.use(cookieParser());
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(express.json({ limit: "50mb" }));
