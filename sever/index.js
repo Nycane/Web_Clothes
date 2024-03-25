@@ -8,8 +8,6 @@ const cookieParser = require("cookie-parser");
 require("./configs/passport");
 const app = express();
 // cors
-console.log("jwt serect>>",process.env.JWT_SERECT);
-console.log(process.env.NODE_ENV)
 app.use(
   cors({
     origin:
