@@ -41,7 +41,7 @@ function AccountLostPassword() {
             Toast('success', result.message,"1500");
         } catch (error) {
             setIsLoading(false)
-            Toast('error', error.response.data.message,"1500");
+            Toast('error', error.response.data.message);
         }
             reset();
     };
