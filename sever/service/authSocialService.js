@@ -10,7 +10,7 @@ class authSocialService {
   }
   async insertUserSocial(id, role, displayName, email, photo, typeLog, code) {
     await pool.query(
-      "insert into users(id,id_role,username,email,avatar,type_log,verifycation_code) values(?,?,?,?,?,?)",
+      "insert into users(id,id_role,username,email,avatar,type_log,verifycation_code) values(?,?,?,?,?,?,?)",
       [id, role, displayName, email, photo, typeLog, code]
     );
   }

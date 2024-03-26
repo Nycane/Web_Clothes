@@ -8,9 +8,6 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
 
 // Google strategy
-console.log(process.env.NODE_ENV);
-console.log(process.env.GOOGLE_REDIRECT_URL_LOCAL);
-console.log(process.env.GOOGLE_REDIRECT_URL_HOST);
 passport.use(
   new GoogleStrategy(
     {
@@ -25,8 +22,10 @@ passport.use(
       try {
         if (profile?.id) {
           const code = uuidv4();
-          const user = userService.selectUserById(profile.id);
+          const user = await userService.selectUserById(profile.id);
+          
           if (user.length === 0) {
+            console.log(profile)
             await authSocialService.insertUserSocial(
               profile.id,
               constant.ROLE_DEFAULT,
