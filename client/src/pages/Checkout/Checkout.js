@@ -206,11 +206,12 @@ function Checkout() {
 
                                         <p className={cx('field-item')}>
                                             <label htmlFor="notes">Order notes(optional)</label>
-                                            <textarea
+                                            {!isLoading ?<textarea
                                                 {...register('notes')}
+                                                className={cx('textarea')}
                                                 placeholder="Notes about your order, e.g. special notes for delivery."
                                                 id="notes"
-                                            ></textarea>
+                                            ></textarea> : <SkeletonLoading className={cx('textarea')}></SkeletonLoading>}
                                         </p>
                                         <button ref={btnSubmit} type="submit"></button>
                                         {(!user.email || !user.phone || !user.address || !user.userName) && (
