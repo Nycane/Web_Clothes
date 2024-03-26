@@ -6,7 +6,7 @@ const shopSlice = createSlice({
         items: [],
         max_price: 10000000,
         min_price: 1000000,
-        valuePrice: [9000000, 10000000],
+        valuePrice: [1000000, 10000000],
         colors: [],
         sizes: [],
         categories: [],
