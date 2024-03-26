@@ -1,7 +1,7 @@
 var passport = require("passport");
 const router = require("express").Router();
 const authSocialController = require("../controllers/authSocialController");
-const url = process.env.NODE_ENV === "development" ? process.env.CLIENT_URL : process.env.CLIENT_PRODUCTION
+const url = process.env.NODE_ENV === "development" ? process.env.CLIENT_URL : process.env.PRODUCTION_URL
 console.log("url",url)
 // Google
 router.get(
