@@ -1,4 +1,11 @@
-import {faFaceAngry,faFaceGrinHearts,faFaceKissWinkHeart,faFaceSmile,faSmileWink,faStar,} from '@fortawesome/free-solid-svg-icons';
+import {
+    faFaceAngry,
+    faFaceGrinHearts,
+    faFaceKissWinkHeart,
+    faFaceSmile,
+    faSmileWink,
+    faStar,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
 import classNames from 'classnames/bind';
@@ -18,19 +25,19 @@ import Review from './Review';
 import Star from './Star';
 import styles from './Tabs.module.scss';
 const cx = classNames.bind(styles);
-function Tabs({productId}) {
+function Tabs({ productId }) {
     const dispatch = useDispatch();
     // const { id: productId } = useParams();
     const [toggle, setToggle] = useState(1);
     const [star, setStar] = useState(0);
     const [isStar, setiStar] = useState(false);
-    const [activeCmt,setActiveCmt] = useState(null);
+    const [activeCmt, setActiveCmt] = useState(null);
     const [storageStar, setStorageStar] = useState();
     const [comment, setComment] = useState('');
-    const {info:user,listComments,isLoading,isAuth} = useSelector((state) => state.user);
+    const { info: user, listComments, isLoading, isAuth } = useSelector((state) => state.user);
     const view = useSelector((state) => state.user?.countView);
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const scrollPosition= useRef(null);
+    const scrollPosition = useRef(null);
     // Mở modal comment
     function openModal() {
         setModalIsOpen(true);
@@ -68,17 +75,17 @@ function Tabs({productId}) {
             commentUser({
                 productId,
                 ...user,
-                "content": comment.trim(),
-                "rating": star,
+                content: comment.trim(),
+                rating: star,
             }),
         );
     }
     // remove comment
-    function handleDeleteComment(id,indexCmt) {
-        setActiveCmt(indexCmt)
+    function handleDeleteComment(id, indexCmt) {
+        setActiveCmt(indexCmt);
         const isDelete = window.confirm('Are you sure to delete?');
-        isDelete && dispatch(deleteComment({productId, commentId: id,...user}));
-        scrollViewToPoint(scrollPosition)
+        isDelete && dispatch(deleteComment({ productId, commentId: id, ...user }));
+        scrollViewToPoint(scrollPosition);
     }
     // Get comments
     useEffect(() => {
@@ -158,13 +165,17 @@ function Tabs({productId}) {
                                         maxLength={500}
                                     ></textarea>
                                     <button onClick={handleSubmit} className={cx('btn-submit')}>
-                                     {isLoading ? <IconLoading></IconLoading> : "submit"}
+                                        {isLoading ? <IconLoading></IconLoading> : 'submit'}
                                     </button>
                                 </div>
                             ) : (
                                 <div className={cx('please-login')}>
                                     <h1 className={cx('title-redirect')}>Please Login To Comment</h1>
-                                    <Link to={ROUTES_PATHS.LOGIN} className={cx('btn-redirect')}>
+                                    <Link
+                                        to={ROUTES_PATHS.LOGIN}
+                                        state={{ from: { pathname: `/product/${productId}` } }}
+                                        className={cx('btn-redirect')}
+                                    >
                                         login
                                     </Link>
                                 </div>
