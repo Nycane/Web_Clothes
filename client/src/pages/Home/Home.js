@@ -5,8 +5,8 @@ import BannerCustom from '../../components/Banner/BannerCustom';
 import Image from '../../components/Img';
 import SliderCustom from '../../components/Slider/SliderCustom';
 import SliderProducts from '../../components/Slider/SliderProducts';
-import { BRAND_IMGS, HOME_IMG} from '../../constants';
-import { getProducts,getBestSellers,getTrendings} from '../../redux/slice/productSlice';
+import { BRAND_IMGS, HOME_IMG } from '../../constants';
+import { getBestSellers, getTrendings } from '../../redux/slice/productSlice';
 import styles from './Home.module.scss';
 import Banner1 from './components/Banner1';
 import Banner2 from './components/Banner2';
@@ -45,7 +45,6 @@ function Home() {
       ]
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getProducts());
         dispatch(getBestSellers());
         dispatch(getTrendings())
         // eslint-disable-next-line react-hooks/exhaustive-deps
