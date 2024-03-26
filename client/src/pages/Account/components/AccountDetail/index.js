@@ -141,7 +141,7 @@ function AccountDetail({ user }) {
                             )}
                             <span className={cx('error')}>{errors.address?.message}</span>
                         </div>
-                        <button className={cx('btn-change')} type="submit">
+                        <button className={cx('btn-changepw')} type="submit">
                             {isLoading ? <IconLoading></IconLoading> : 'save changes'}
                         </button>
                     </form>

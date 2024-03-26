@@ -25,10 +25,10 @@
         color: #666666;
         display: block;
         width: 100%;
-    }
+    }   
 }
 
-.btn-change{
+.btn-changepw{
     color: var(--bg-white);
     background: black;
     text-align: center;
@@ -44,10 +44,10 @@
     }
 }
 @include tablet(){
-.btn-changepw{
-    display: block;
-    margin: auto;
-}
+    // .btn-changepw{
+    //     display: block;
+    //     margin: auto;
+    // }
 }
 @include larger-mobile(){
     .field-item{
