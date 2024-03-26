@@ -33,6 +33,10 @@
                 top: 0;
                 bottom: 0;
                 z-index: 1;
+                & .btn-quickview,
+                .btn-cart {
+                    transition: none;
+                }
             }
         }
         & .img {
@@ -69,7 +73,7 @@
                 font-size: 0;
                 white-space: nowrap;
                 transition: all ease 0.4s;
-              
+
                 &:hover {
                     background-color: var(--bg-brown);
                     .icon-cart,
@@ -86,7 +90,7 @@
                     color: #222;
                     font-size: 2rem;
                 }
-                &.isActive{
+                &.isActive {
                     pointer-events: none !important;
                 }
             }
@@ -180,6 +184,7 @@
                 transition: all 0.3s ease;
                 &.isLoading {
                     @include loading();
+                    transition: none;
                 }
             }
             & .discount {
@@ -189,6 +194,7 @@
                 display: inline-block;
                 &.isLoading {
                     color: transparent;
+                    transition: none;
                 }
             }
         }

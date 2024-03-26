@@ -6,7 +6,6 @@ import { logout } from '../redux/slice/userSlice';
 import wishlistSlice from '../redux/slice/wishlistSLice';
 const env = process.env.NODE_ENV;
 const baseUrl = env === 'development' ? process.env.REACT_APP_API_LOCAL : process.env.REACT_APP_API_HOST;
-console.log(baseUrl)
 let isRefreshing = false;
 let refreshPromise = null;
 async function getRefreshToken(dispatch) {
