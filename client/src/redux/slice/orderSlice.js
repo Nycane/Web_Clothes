@@ -17,13 +17,13 @@ const orderSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        // builder.addCase(getResultPayment.pending, (state, action) => {
-        //     // state.isLoading = true;
-        // });
+        builder.addCase(getResultPayment.pending, (state, action) => {
+            state.isLoading = true;
+        });
         builder.addCase(getResultPayment.fulfilled, (state, action) => {
             if (action?.payload?.data?.rspCode === '00') {
                 state.orderDetail = action.payload.data;
-                // state.isLoading = false;
+                state.isLoading = false;
             }
         });
         builder.addCase(addOrder.pending, (state, action) => {
