@@ -441,6 +441,7 @@ function ProductInfo({ product, customCss, showQuickView = true }) {
                     <div
                         className={cx('btn-quantity', {
                             isLoading: isLoading,
+                            disabled:quantityOfProduct === 0
                         })}
                     >
                         <button

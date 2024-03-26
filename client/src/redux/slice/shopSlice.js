@@ -87,7 +87,6 @@ const shopSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(getVariantProducts.fulfilled, (state, action) => {
-                console.log('action', action);
                 state.sizes = action.payload.size.data;
                 state.colors = action.payload.color.data;
                 state.brands = action.payload.brand.data;
