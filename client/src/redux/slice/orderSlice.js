@@ -55,6 +55,9 @@ const orderSlice = createSlice({
         builder.addCase(createPayment.fulfilled, (state, action) => {
             state.isLoading = false;
         });
+        builder.addCase(createPayment.rejected, (state, action) => {
+            state.isLoading = false;
+        });
     },
 });
 
