@@ -89,8 +89,6 @@ function Tabs({ productId }) {
     }
     // Get comments
     useEffect(() => {
-        // console.log("productId>>>",productId)
-        // productId && dispatch(getComments({productId,...user}));
         setToggle(1);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [productId]);
@@ -118,7 +116,6 @@ function Tabs({ productId }) {
                                                 Tippy={Tippy}
                                                 iconFaceAngry={
                                                     <FontAwesomeIcon
-                                                        // style={{ color: 'white', fontSize: '20px' }}
                                                         icon={faFaceAngry}
                                                     ></FontAwesomeIcon>
                                                 }

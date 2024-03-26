@@ -38,8 +38,10 @@ function Account() {
             });
     }
     useEffect(() => {
-        dispatch(getUserInfo(user));
-        dispatch(getOrders(user));
+        if (isAuth) {
+            dispatch(getUserInfo(user));
+            dispatch(getOrders(user));
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -96,7 +98,7 @@ function Account() {
                         </Col>
                         <Col lg={8} md={8} style={{ padding: 0 }}>
                             {isLoading ? (
-                                <SkeletonLoading style={{margin:"0px 27.5px"}} height={'400px'}></SkeletonLoading>
+                                <SkeletonLoading style={{ margin: '0px 27.5px' }} height={'400px'}></SkeletonLoading>
                             ) : (
                                 <div className={cx('navbar-content')}>
                                     <Routes>
