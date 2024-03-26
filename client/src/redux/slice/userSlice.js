@@ -86,7 +86,6 @@ const userSlice = createSlice({
         });
         // Get Comments
         builder.addCase(getComments.fulfilled, (state, action) => {
-            console.log('co vo get cmt k fullfield');
             state.isLoading = false;
             state.listComments = action.payload?.data?.listComments;
             state.countView = action.payload?.data?.countFeedbackProduct;
@@ -98,9 +97,6 @@ const userSlice = createSlice({
         //  Delete comment
         builder.addCase(deleteComment.pending, (state, action) => {
             state.isLoading = true;
-        });
-        builder.addCase(deleteComment.rejected,(state, action) => {
-            console.log("co vo reject delete khong")
         });
         // Login Social
         builder.addCase(loginSocial.fulfilled, (state, action) => {
@@ -131,6 +127,16 @@ const userSlice = createSlice({
         });
         builder.addCase(changePw.rejected, (state, action) => {
             state.isChangePw = false;
+        });
+        // contact
+        builder.addCase(addContact.pending, (state, action) => {
+            state.isContact= true;
+        });
+        builder.addCase(addContact.fulfilled, (state, action) => {
+            state.isContact= false;
+        });
+        builder.addCase(addContact.rejected, (state, action) => {
+            state.isContact= false;
         });
     },
 });

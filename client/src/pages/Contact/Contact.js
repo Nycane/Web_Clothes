@@ -5,13 +5,15 @@ import styles from './Contact.module.scss';
 // import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 // import { Link } from 'react-router-dom';
 import { faDribbble, faFacebookF, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import IconLoading from '../../components/Loading/IconLoading/IconLoading'
 import { Col, Container, Row } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import useValidate from '../../components/Hook/useValidate';
 import { addContact } from '../../redux/slice/userSlice';
 const cx = classNames.bind(styles);
 function Contact(props) {
+    const isContact = useSelector((state=>state.user.isContact))
     const dispatch = useDispatch();
     const options = {
         email: yup
@@ -31,7 +33,11 @@ function Contact(props) {
             .required('This field cannot be empty')
             .max(11, 'Please enter a correct phone number ')
             .matches(/^[0-9]+$/, 'Must be a valid number'),
-        message: yup.string().trim().required('This field cannot be empty').max(500,'Message cannot exceed 500 characters'),
+        message: yup
+            .string()
+            .trim()
+            .required('This field cannot be empty')
+            .max(500, 'Message cannot exceed 500 characters'),
     };
     const {
         register,
@@ -41,8 +47,11 @@ function Contact(props) {
     } = useValidate(options);
 
     const onSubmit = async (data) => {
-        dispatch(addContact(data));
-        reset();
+        dispatch(addContact(data))
+            .unwrap()
+            .then(() => {
+                reset();
+            });
     };
 
     return (
@@ -107,7 +116,7 @@ function Contact(props) {
                                 </Col>
                             </Row>
                             <button type="submit" className={cx('form-button')}>
-                                send message
+                              {!isContact ? <IconLoading></IconLoading> :  "send message"}
                             </button>
                         </form>
                     </Col>
