@@ -1,9 +1,6 @@
 import axios from 'axios'
 const env = process.env.NODE_ENV;
 const baseUrl= env === "development" ? process.env.REACT_APP_API_LOCAL:process.env.REACT_APP_API_HOST;
-console.log("baseUrl",baseUrl)
-console.log("baseUrl",process.env.REACT_APP_API_HOST)
-
 const axiosClient = axios.create({
     baseURL: baseUrl,
     headers: {

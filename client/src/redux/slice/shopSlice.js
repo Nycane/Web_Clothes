@@ -98,6 +98,7 @@ const shopSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(filterProducts.fulfilled, (state, action) => {
+                console.log("product shop",action.payload.data)
                 state.items = action.payload.data;
                 state.isLoading = false;
             });
