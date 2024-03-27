@@ -137,6 +137,7 @@ function Layout({ param = '' }) {
             dispatch(getVariantProducts(param));
         } else {
             dispatch(getVariantProducts());
+            dispatch(shopSlice.actions.setSort("default"))
         }
     }, [param]);
 
@@ -196,7 +197,7 @@ function Layout({ param = '' }) {
                         <FilterDropDown onInSort={handleSort}></FilterDropDown>
                     </div>
 
-                    <Topbar onInSort={handleSort} onInChangeLayout={handleChangLayout} layout={layout}></Topbar>
+                    <Topbar onInSort={handleSort} sort={sort} onInChangeLayout={handleChangLayout} layout={layout}></Topbar>
 
                     <Row>
                         <Col lg={12} md={12}>

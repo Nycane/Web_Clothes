@@ -82,7 +82,7 @@ const shopSlice = createSlice({
             state.pageNumber = 0;
             state.selectBrand = '';
             state.selectCategory = '';
-            state.sort = 'default'
+            // state.sort = 'default'
         },
     },
     extraReducers: (builder) => {
