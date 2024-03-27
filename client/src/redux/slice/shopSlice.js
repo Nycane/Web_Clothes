@@ -92,7 +92,6 @@ const shopSlice = createSlice({
                 state.isPriceUpdate=false
             })
             .addCase(getVariantProducts.fulfilled, (state, action) => {
-                console.log('variant,', action);
                 state.sizes = action.payload.size.data;
                 state.colors = action.payload.color.data;
                 state.brands = action.payload.brand.data;

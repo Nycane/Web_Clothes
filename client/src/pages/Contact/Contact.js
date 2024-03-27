@@ -116,7 +116,7 @@ function Contact(props) {
                                 </Col>
                             </Row>
                             <button type="submit" className={cx('form-button')}>
-                              {!isContact ? <IconLoading></IconLoading> :  "send message"}
+                              {isContact ? <IconLoading></IconLoading> :  "send message"}
                             </button>
                         </form>
                     </Col>

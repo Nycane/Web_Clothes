@@ -41,7 +41,6 @@ const productApi = {
     },
     async filterProduct(query) {
         let url = END_POINT_PRODUCT + `/filter`;
-        console.log("query",query)
         if (query.sort) {
             url += `?sort=${query.sort}`;
         }
