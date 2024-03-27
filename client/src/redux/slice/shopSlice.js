@@ -17,7 +17,7 @@ const shopSlice = createSlice({
         selectColors: [],
         selectBrand: '',
         selectCategory: '',
-        sort: 'Default',
+        sort: 'default',
         isLoading: false,
         isPriceUpdate:false,
         pageNumber: 0,
@@ -82,6 +82,7 @@ const shopSlice = createSlice({
             state.pageNumber = 0;
             state.selectBrand = '';
             state.selectCategory = '';
+            state.sort = 'default'
         },
     },
     extraReducers: (builder) => {

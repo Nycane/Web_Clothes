@@ -186,7 +186,7 @@ class productService {
       } else {
         query = `select distinct products.id,products.category_id,products.id_brand,products.name,products.description,products.price,products.price_discount,products.image from products,brand,categories where ${condition}`;
       }
-      if (sort && sort !== "Default") {
+      if (sort && sort !== "default") {
         query += ` order by IF(products.price_discount >0, products.price_discount, price) ${sort}`;
       }
       const [products] = await pool.query(query);
