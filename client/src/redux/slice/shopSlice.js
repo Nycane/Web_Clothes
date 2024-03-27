@@ -4,9 +4,11 @@ const shopSlice = createSlice({
     name: 'shop',
     initialState: {
         items: [],
-        max_price: 10000000,
-        min_price: 1000000,
-        valuePrice: [1000000, 10000000],
+        maxPriceDf: 10000000,
+        minPriceDf: 0,
+        maxPrice: 10000000,
+        minPrice: 0,
+        valuePrice: [0,10000000],
         colors: [],
         sizes: [],
         categories: [],
@@ -17,6 +19,7 @@ const shopSlice = createSlice({
         selectCategory: '',
         sort: 'Default',
         isLoading: false,
+        isPriceUpdate:false,
         pageNumber: 0,
         layout: 4,
     },
@@ -26,9 +29,6 @@ const shopSlice = createSlice({
         },
         setPageNumber(state, action) {
             state.pageNumber = action.payload;
-        },
-        setValuePrice(state, action) {
-            state.valuePrice = action.payload;
         },
         setCategory(state, action) {
             state.selectCategory = action.payload;
@@ -40,8 +40,9 @@ const shopSlice = createSlice({
             state.sort = action.payload;
         },
         setPrice(state, action) {
-            state.min_price = action.payload[0];
-            state.max_price = action.payload[1];
+            state.valuePrice = action.payload;
+            state.minPrice = action.payload[0];
+            state.maxPrice = action.payload[1];
         },
         setColor(state, action) {
             const isSelectColors = state.selectColors.includes(action.payload);
@@ -60,23 +61,25 @@ const shopSlice = createSlice({
             }
         },
         resetPrice(state, action) {
-            state.min_price = 1000000;
-            state.max_price = 10000000;
+            state.valuePrice = [state.minPriceDf,state.maxPriceDf]
+            state.minPrice = state.minPriceDf;
+            state.maxPrice = state.maxPriceDf;
         },
         clearAll(state, action) {
-            state.max_price = 10000000;
-            state.min_price = 1000000;
+            state.valuePrice = [state.minPriceDf,state.maxPriceDf]
+            state.maxPrice = state.maxPriceDf;
+            state.minPrice = state.minPriceDf;
             state.selectColors = [];
             state.selectSizes = [];
         },
         resetDefault(state, action) {
-            state.max_price = 10000000;
-            state.min_price = 1000000;
+            state.valuePrice = [state.minPriceDf,state.maxPriceDf];
+            state.maxPrice = state.maxPriceDf;
+            state.minPrice = state.minPriceDf;
             state.selectColors = [];
             state.selectSizes = [];
             state.layout = 4;
             state.pageNumber = 0;
-            state.valuePrice = [1000000, 10000000];
             state.selectBrand = '';
             state.selectCategory = '';
         },
@@ -85,12 +88,21 @@ const shopSlice = createSlice({
         builder
             .addCase(getVariantProducts.pending, (state, action) => {
                 state.isLoading = true;
+                state.isPriceUpdate=false
             })
             .addCase(getVariantProducts.fulfilled, (state, action) => {
+                console.log('variant,', action);
                 state.sizes = action.payload.size.data;
                 state.colors = action.payload.color.data;
                 state.brands = action.payload.brand.data;
                 state.categories = action.payload.category.data;
+                const product = action.payload.productPrice.data
+                state.valuePrice = [product.minPrice,product.maxPrice];
+                state.maxPriceDf = product.maxPrice;
+                state.minPriceDf = product.minPrice
+                state.maxPrice = product.maxPrice;
+                state.minPrice = product.minPrice;
+                state.isPriceUpdate=true
                 state.isLoading = false;
             });
         builder
@@ -98,7 +110,6 @@ const shopSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(filterProducts.fulfilled, (state, action) => {
-                console.log("product shop",action.payload.data)
                 state.items = action.payload.data;
                 state.isLoading = false;
             });
@@ -110,29 +121,32 @@ const getVariantProducts = createAsyncThunk('shop/getvariantProducts', async (da
     let result = Object.keys(data);
     const propertyFilter = result[result.length - 1];
     if (propertyFilter === 'brand') {
-        const [color, size, brand, category] = await Promise.all([
+        const [color, size, productPrice, brand, category] = await Promise.all([
             productApi.getColorProducts(propertyFilter, data.brand),
             productApi.getsizeProducts(propertyFilter, data.brand),
+            productApi.getProductPrice(propertyFilter, data.brand),
             productApi.getBrandProducts(),
             productApi.getCategoryProducts(),
         ]);
-        return { size, color, brand, category };
+        return { size, color, productPrice, brand, category };
     } else if (propertyFilter === 'category') {
-        const [color, size, brand, category] = await Promise.all([
+        const [color, size, productPrice, brand, category] = await Promise.all([
             productApi.getColorProducts(propertyFilter, data.category),
             productApi.getsizeProducts(propertyFilter, data.category),
+            productApi.getProductPrice(propertyFilter, data.category),
             productApi.getBrandProducts(),
             productApi.getCategoryProducts(),
         ]);
-        return { size, color, brand, category };
+        return { size, color, productPrice, brand, category };
     } else {
-        const [color, size, brand, category] = await Promise.all([
+        const [color, size, productPrice, brand, category] = await Promise.all([
             productApi.getColorProducts(),
             productApi.getsizeProducts(),
+            productApi.getProductPrice(),
             productApi.getBrandProducts(),
             productApi.getCategoryProducts(),
         ]);
-        return {size, color, brand, category };
+        return { size, color, productPrice, brand, category };
     }
 });
 
@@ -142,5 +156,5 @@ const filterProducts = createAsyncThunk('shop/filterProducts', async (data, { ge
     const result = await productApi.filterProduct(shop);
     return result;
 });
-export { filterProducts, getVariantProducts };
+export { filterProducts, getVariantProducts};
 export default shopSlice;

@@ -176,16 +176,27 @@ class productsController {
       return handleResponse.sendError(res);
     }
   }
+  async getProductPrice(req,res){
+    console.log(req.body)
+    const {type,data} = req.body;
+    try {
+      const result = await productService.getProductPrice(type,data);
+      return handleResponse.sendSuccess(res,result.message,result.data);
+    } catch (error) {
+      console.log(error)
+      return handleResponse.sendError(res)
+    }
+
+  }
 
   //Filter product
   async filterProducts(req, res) {
-    const { sort, min_price, max_price, color, size, category, brand } =
-      req.query;
+    const { sort, minPrice, maxPrice, color, size, category, brand } = req.query;
     try {
       const result = await productService.filterProducts(
         sort,
-        min_price,
-        max_price,
+        minPrice,
+        maxPrice,
         color,
         size,
         category,

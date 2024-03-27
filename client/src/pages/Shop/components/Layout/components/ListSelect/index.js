@@ -2,13 +2,15 @@ import {formatPrice} from "../../../../../../utils/myUtils";
 import classNames from "classnames/bind";
 import styles from './Listselect.module.scss';
 import { memo } from "react";
+import { useSelector } from "react-redux";
 const cx = classNames.bind(styles);
-function Listselect({onInResetPrice,min_price,max_price,selectColors,onInSelectColor,selectSizes,onInSelectSize,onInClearAll}) {
+function Listselect({onInResetPrice,selectColors,onInSelectColor,selectSizes,onInSelectSize,onInClearAll}) {
+    const {minPrice,maxPrice,maxPriceDf,minPriceDf} = useSelector((state)=>state.shop)
     return (  
         <div className={cx('list-select')}>
-        {(min_price !== 1000000 || max_price !== 10000000) && (
+        {(minPrice !== minPriceDf || maxPrice !== maxPriceDf) && (
             <span onClick={() => onInResetPrice()} className={cx('item-select')}>
-                {formatPrice.format(min_price)} - {formatPrice.format(max_price)} x
+                {formatPrice.format(minPrice)} - {formatPrice.format(maxPrice)} x
             </span>
         )}
         {selectColors?.length > 0 &&
@@ -35,8 +37,8 @@ function Listselect({onInResetPrice,min_price,max_price,selectColors,onInSelectC
                     </span>
                 );
             })}
-        {(min_price !== 1000000 ||
-            max_price !== 10000000 ||
+        {(minPrice !== minPriceDf ||
+            maxPrice !== maxPriceDf ||
             selectColors?.length > 0 ||
             selectSizes?.length > 0) && (
             <div onClick={() => onInClearAll()} className={cx('clear-all')}>

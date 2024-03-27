@@ -41,6 +41,7 @@ const productApi = {
     },
     async filterProduct(query) {
         let url = END_POINT_PRODUCT + `/filter`;
+        console.log("query",query)
         if (query.sort) {
             url += `?sort=${query.sort}`;
         }
@@ -50,8 +51,8 @@ const productApi = {
         if (query.selectBrand) {
             url += `&brand=${query.selectBrand}`;
         }
-        if (query.min_price || query.max_price) {
-            url += `&min_price=${query.min_price}&max_price=${query.max_price}`;
+        if (query.minPrice|| query.maxPrice) {
+            url += `&minPrice=${query.minPrice}&maxPrice=${query.maxPrice}`;
         }
         if (query.selectColors.length > 0) {
             url += `&color=${query.selectColors.join(',')}`;
@@ -88,6 +89,14 @@ const productApi = {
     async getLookBooks() {
         const url = END_POINT_PRODUCT + '/look-book';
         return axiosClient.get(url);
+    },
+    async getProductPrice(type,data) {
+        const url = END_POINT_PRODUCT + `/price`;
+        const requestData = {
+            type,
+            data
+        }
+        return axiosClient.post(url,requestData);
     },
 };
 export default productApi;

@@ -27,14 +27,14 @@ function Layout({ param = '' }) {
         layout,
         sort,
         items: listProduct,
-        valuePrice,
         pageNumber,
+        isPriceUpdate,
         selectBrand,
         selectCategory,
     } = useSelector((state) => state.shop);
     const [loading, setLoading] = useState(true);
-    const [isFetch,setIsFetch] = useState(false);
-    const [isModal, setIsModal] = useState(false)
+    const [isFetch, setIsFetch] = useState(false);
+    const [isModal, setIsModal] = useState(false);
     const scrollPosition = useRef(null);
 
     // Paganation
@@ -51,6 +51,7 @@ function Layout({ param = '' }) {
     function handleOpenModal() {
         setIsModal(true);
     }
+
     function handleCloseModal() {
         setIsModal(false);
     }
@@ -68,15 +69,15 @@ function Layout({ param = '' }) {
     });
 
     // Delay thời gian lấy gía và gửi lên sever
-    const { selectColors, selectSizes, min_price, max_price } = useDebounce(
-        100,
+    const { selectColors, selectSizes, minPrice, maxPrice } = useDebounce(
+        300,
         useSelector((state) => state.shop),
     );
 
     // Lọc sản phẩm theo giá
     const handleChangePrice = useCallback((newValue) => {
         dispatch(shopSlice.actions.setPrice(newValue));
-        dispatch(shopSlice.actions.setValuePrice(newValue));
+        // dispatch(shopSlice.actions.setValuePrice(newValue));
     }, []);
 
     const handleAfterChangePrice = () => {
@@ -104,7 +105,6 @@ function Layout({ param = '' }) {
 
     // Xóa tất cả bộ lọc
     const handleClearAll = useCallback(() => {
-        dispatch(shopSlice.actions.setValuePrice([1000000, 10000000]));
         dispatch(shopSlice.actions.clearAll());
         scrollToTop();
     });
@@ -112,7 +112,6 @@ function Layout({ param = '' }) {
     const handleResetPrice = useCallback(() => {
         dispatch(shopSlice.actions.resetPrice());
         // setValue([1000000, 10000000]);
-        dispatch(shopSlice.actions.setValuePrice([1000000, 10000000]));
         scrollToTop();
     });
     // get property image
@@ -123,7 +122,7 @@ function Layout({ param = '' }) {
         if (!isLoading) {
             setLoading(true);
             timer = setTimeout(() => {
-                setIsFetch(true)
+                setIsFetch(true);
                 setLoading(false);
             }, 1500); // Thời gian chờ là 3000 mili giây, tức là 3 giây
         }
@@ -143,10 +142,11 @@ function Layout({ param = '' }) {
 
     // Filter sản phẩm
     useEffect(() => {
-        dispatch(filterProducts());
-        // setPageNumber(0);
-        dispatch(shopSlice.actions.setPageNumber(0));
-    },[selectColors, selectSizes, min_price, max_price, selectBrand, selectCategory, sort]);
+        if (isPriceUpdate) {
+            dispatch(filterProducts());
+            dispatch(shopSlice.actions.setPageNumber(0));
+        }
+    }, [selectColors, selectSizes, minPrice, maxPrice, selectBrand, selectCategory, sort]);
     return (
         <Container fluid style={{ marginBottom: 90 }}>
             <Row>
@@ -159,7 +159,6 @@ function Layout({ param = '' }) {
                             onInSelectSize={handleSelectSize}
                             selectColors={selectColors}
                             selectSizes={selectSizes}
-                            value={valuePrice}
                             onInChangePrice={handleChangePrice}
                             onInAfterChangePrice={handleAfterChangePrice}
                         ></Sidebar>
@@ -184,7 +183,6 @@ function Layout({ param = '' }) {
                                 onInSelectSize={handleSelectSize}
                                 selectColors={selectColors}
                                 selectSizes={selectSizes}
-                                value={valuePrice}
                                 onInChangePrice={handleChangePrice}
                                 onInAfterChangePrice={handleAfterChangePrice}
                             ></Sidebar>
@@ -208,31 +206,12 @@ function Layout({ param = '' }) {
                                 onInSelectColor={handleSelectColor}
                                 onInSelectSize={handleSelectSize}
                                 onInClearAll={handleClearAll}
-                                min_price={min_price}
-                                max_price={max_price}
                                 selectColors={selectColors}
                                 selectSizes={selectSizes}
                             ></Listselect>
                         </Col>
                     </Row>
                     <Row>
-                        {/* {loading
-                            ? listProduct?.slice(pagesVisited, pagesVisited + itemsPerPage).map((e, i) => {
-                                  return (
-                                      <Col key={i} lg={layout} md={4} sm={6} xs={6}>
-                                          <ProductSkeleton
-                                              height={300}
-                                          ></ProductSkeleton>
-                                      </Col>
-                                  );
-                              })
-                            : listProduct?.slice(pagesVisited, pagesVisited + itemsPerPage).map((e, i) => {
-                                  return (
-                                      <Col key={i} lg={layout} md={6} sm={6} xs={6}>
-                                          <Card isLoading={loading} product={e}></Card>
-                                      </Col>
-                                  );
-                              })} */}
                         {listProduct?.slice(pagesVisited, pagesVisited + itemsPerPage).map((e, i) => {
                             return (
                                 <Col key={i} lg={layout} md={6} sm={6} xs={6}>

@@ -154,18 +154,19 @@ class productService {
       throw error;
     }
   }
-  //FILTER PRODUCTS
-  async filterProducts(
-    sort,
-    min_price,
-    max_price,
-    color,
-    size,
-    category,
-    brand
-  ) {
+  async getProductPrice(type,data){
     try {
-      let condition = `IF(products.price_discount >0, products.price_discount, price) between ${min_price} and ${max_price}`;
+      const productPrice = await this.selectProductPrice(type,data);
+      console.log("productPrice",productPrice);
+      return handleResponse.createResponse(200,"success", productPrice[0]);
+    } catch (error) {
+      throw error
+    }
+  }
+  //FILTER PRODUCTS
+  async filterProducts(sort, minPrice, maxPrice, color, size, category, brand) {
+    try {
+      let condition = `IF(products.price_discount >0, products.price_discount, price) between ${minPrice} and ${maxPrice}`;
       let query = ``;
       if (category) {
         condition += ` and products.category_id = categories.id and categories.name = '${category}'`;
@@ -197,6 +198,17 @@ class productService {
   }
 
   // ------------------------------------------------------------EXECUTE-------------------------------------------------------------------
+  // SELECT PRODUCT PRICE
+  async selectProductPrice(type,data){
+    let query = "SELECT MIN(CASE WHEN price_discount > 0 THEN price_discount ELSE price END) AS minPrice, MAX(CASE WHEN price_discount > 0 THEN price_discount ELSE price END) AS maxPrice FROM products"
+    if (type === "category"){
+      query += `,categories WHERE products.category_id = categories.id and categories.name = "${data}" `
+    }else if(type === "brand"){
+      query += `,brand where products.id_brand = brand.id and brand.name = "${data}"`
+    }
+    const [productPrice] = await pool.query(query);
+    return productPrice;
+  }
   // SELECT PRODUCT BRANDS
   async selectProductBrands() {
     const [productBrands] = await pool.query(
