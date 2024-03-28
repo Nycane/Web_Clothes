@@ -97,7 +97,7 @@ function Account() {
                             </div>
                         </Col>
                         <Col lg={8} md={8} style={{ padding: 0 }}>
-                            {!isLoading ? (
+                            {isLoading ? (
                                 <SkeletonLoading className={cx('navbar-content','skeleton')} height={'400px'}></SkeletonLoading>
                             ) : (
                                 <div className={cx('navbar-content')}>
