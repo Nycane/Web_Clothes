@@ -299,26 +299,19 @@
         }
     }
 }
-
-@include medium-mobile() {
-    .card {
-        & .card-body {
-            & .product-options {
-                & .btn-cart,
-                .btn-wishlist {
-                    width: 30px;
-                    height: 30px;
-                }
-            }
-        }
-    }
-}
 @include small-mobile() {
     .card {
         & .card-body {
             & .product-out-of-stock {
                 top: 27%;
                 right: 20%;
+            }
+            & .product-options {
+                & .btn-cart,
+                .btn-wishlist {
+                    width: 30px;
+                    height: 30px;
+                }
             }
         }
     }
