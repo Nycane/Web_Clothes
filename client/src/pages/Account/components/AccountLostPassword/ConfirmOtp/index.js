@@ -30,8 +30,8 @@ function ConfirmOtp({ email }) {
     const onSubmit = async (data) => {
         try {
             setIsVerify(true)
-            await userApi.verifyOtp(data);
             await delay(500);
+            await userApi.verifyOtp(data);
             setIsVerify(false)
             dispatch(userSlice.actions.verifyOtp(true));
         } catch (error) {
@@ -45,8 +45,8 @@ function ConfirmOtp({ email }) {
     async function handleSendOtp(email) {
         try {
           setIsSendOtp(true)
+          await delay(500);
             let result = await userApi.forgetPassword({email});
-            await delay(500);
             setIsSendOtp(false)
             Toast('success', result.message,"1500");
         } catch (error) {
