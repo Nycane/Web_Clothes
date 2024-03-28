@@ -47,7 +47,9 @@
     height: calc(100vh - 275px);
     overflow-y:scroll;
     overflow-x:scroll;
-    // padding: 0px 25px;
+    overscroll-behavior:contain;
+    display: flex;
+    flex-wrap: wrap;
     margin-left: 4.5px;
     // padding-bottom: 120px;
 }
