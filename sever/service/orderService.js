@@ -195,7 +195,6 @@ class orderService {
                 // Ở đây cập nhật trạng thái giao dịch thanh toán thành công vào CSDL của bạn
                 //  res.status(200).json({ rspCode, Message: "Success" });
                 const order = await this.selectOrderDetailById(orderId);
-                console.log("order>>", order);
                 if (order.orderDetail[0].status == 0) {
                   //update quantity khi payment success
                   await this.updateQuantity(order.productDetail);

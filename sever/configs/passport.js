@@ -25,7 +25,6 @@ passport.use(
           const user = await userService.selectUserById(profile.id);
           
           if (user.length === 0) {
-            console.log(profile)
             await authSocialService.insertUserSocial(
               profile.id,
               constant.ROLE_DEFAULT,

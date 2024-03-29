@@ -157,7 +157,6 @@ class productService {
   async getProductPrice(type,data){
     try {
       const productPrice = await this.selectProductPrice(type,data);
-      console.log("productPrice",productPrice);
       return handleResponse.createResponse(200,"success", productPrice[0]);
     } catch (error) {
       throw error
