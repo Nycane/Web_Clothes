@@ -391,7 +391,7 @@ class userService {
     await pool.query("Delete from comments where id = ?", [commentId]);
   }
   async deleteOtp(email) {
-    await pool.query("Delete from Otp where email = ?", [email]);
+    await pool.query("Delete from otp where email = ?", [email]);
   }
   // DELETE WISHLIST
   async deleteWishlistItem(productId, userId) {
