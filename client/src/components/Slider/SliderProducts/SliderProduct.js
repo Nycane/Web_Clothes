@@ -36,7 +36,6 @@ function SamplePrevArrow(props) {
 
 function SliderProducts({ title, text = '', slShow = 5, titleCenter = false, products = []}) {
     const isLoading = useSelector((state)=>state.product.isLoading)
-    // console.log("slide product render may lan")
     const settings = {
         infinite: products.length >= 4 ? true : false,
         speed: 500,

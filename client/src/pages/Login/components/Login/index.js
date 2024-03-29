@@ -44,14 +44,11 @@ function Login({ setToggle, toggle, scrollPosition }) {
                 reset();
             });
     };
-    console.log(process.env.REACT_APP_API_HOST)
-    console.log(process.env.REACT_APP_API_LOCAL)
     function handleRedirectGoogle() {
         const url =
             process.env.NODE_ENV === 'development'
                 ? `${process.env.REACT_APP_API_LOCAL}/social/auth/google`
                 : `${process.env.REACT_APP_API_HOST}/social/auth/google`;
-        console.log(url);
         window.open(url, '_self');
         setValue('email', '');
         setValue('password', '');

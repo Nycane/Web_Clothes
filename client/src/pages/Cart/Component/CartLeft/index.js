@@ -15,14 +15,10 @@ function CartLeft({ checkout, products, btnSubmit, register, errors }) {
     const totalDiscount = useSelector((state) => state.cart.totalDiscount);
     const isCoupoun = useSelector((state) => state.cart.isCoupoun);
     const isLoading = useSelector((state)=>state.order.isLoading)
-    console.log("isLoading",isLoading);
     function handleRemoveCoupoun() {
         dispatch(cartSlice.actions.setCoupoun(''));
     }
-    // console.log("product",products)
-    // function handleVerifyUser(){
-    //     ((user?.username && user?.id) ? navigate("/") :alert("Please login to checkout"))
-    // }
+   
     function handleSubmit(e) {
         e.preventDefault();
         btnSubmit.current.click();

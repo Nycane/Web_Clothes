@@ -16,7 +16,6 @@ function Search({ onInCloseModal, isModalSearch }) {
     const [productSearch, setProductSearch] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     let searchDebounce = useDebounce(500, search);
-    console.log("Search",search)
     // Làm chậm thời gian gửi kết quả lên api
     useEffect(() => {
         if (!searchDebounce.trim() && !search) {

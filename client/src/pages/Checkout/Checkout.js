@@ -43,7 +43,6 @@ function Checkout() {
             notes: '',
         },
     };
-    // console.log("options form>>",optionsForm)
     const {
         register,
         handleSubmit,

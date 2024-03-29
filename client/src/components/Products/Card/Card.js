@@ -52,7 +52,6 @@ function Card({ closeModalSearch, isModalSearch, product, options = true, isLoad
     function handleAddWishlish(product) {
         if (objectIsEmpty(user)) return Toast('warning', 'Please Login To Use Function');
         setActiveProduct(product.id);
-        console.log(product);
         const newData = {
             productId: product.id,
             ...user,

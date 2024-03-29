@@ -65,7 +65,6 @@ function ProductInfo({ product, customCss, showQuickView = true }) {
             return;
         }
         const productQuantityInCart = carts.find((e) => e.id === product.id && e.color === color && e.size === size);
-        // console.log(productQuantityInCart);
         if (productQuantityInCart) {
             // check quantity stock
             const quantityStock = quantityOfProduct - productQuantityInCart.quantity;
@@ -96,7 +95,6 @@ function ProductInfo({ product, customCss, showQuickView = true }) {
     }
 
     function handleAddWishlist(product) {
-        console.log(loadingWishList)
         if(loadingWishList){
             return
         }

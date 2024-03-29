@@ -1,13 +1,6 @@
 import Toast from "../components/Toastify/Toastify";
 const apiService ={
     handleApi({response}){
-        console.log("handleApi",response)
-        // // handle api success
-        // if (response.status === 200) {
-        //     // Nếu response status là 200, coi đó là thành công và không xử lý lỗi
-        //     Toast("success",response.message) 
-        //     return response;
-        // }
         // Handle api eror
         if (response?.data?.status === 400) {
             // Xử lý lỗi 400 (Bad Request)
@@ -17,12 +10,9 @@ const apiService ={
 
         }
         if (response?.data?.status === 401) {
-            // if(response.data.message==="RefreshToken Invalid" || response.data.message==="RefreshToken Exprise"){              
-            // }
             // Xử lý lỗi 401 (Unauthorized)
             Toast("error", response.data.message);
             // Chuyển hướng hoặc thực hiện các hành động khác liên quan đến quyền truy cập
-            // return Promise.reject(response.data);
             throw  new Error(response.data.message);
 
         }
@@ -30,7 +20,6 @@ const apiService ={
             // Xử lý lỗi 401 (Unauthorized)
             Toast("error", response.data.message);
             // Chuyển hướng hoặc thực hiện các hành động khác liên quan đến quyền truy cập
-            // return Promise.reject(response.data);
             throw  new Error(response.data.message);
         }
     

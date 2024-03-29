@@ -48,7 +48,6 @@ function AccountChangePassword({ user }) {
         .catch((data)=>{
             reset()
         })
-        console.log("isLoading",isLoading)
     };
     return (
         <form className={cx('change-pw-wrap')} onSubmit={handleSubmit(onSubmit)}>

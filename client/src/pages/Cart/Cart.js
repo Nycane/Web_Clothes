@@ -22,7 +22,6 @@ function Cart() {
     const [coupoun, setCoupoun] = useState('');
     const [codeCoupoun, setCodeCoupoun] = useState('');
     const isCoupoun = useSelector((state) => state.cart.isCoupoun);
-    console.log('isCoupoun >>>', isCoupoun);
     const moneyFreeShip = 10000000;
     const listProduct = useSelector((state) => state.cart.listProducts);
     const dispatch = useDispatch();

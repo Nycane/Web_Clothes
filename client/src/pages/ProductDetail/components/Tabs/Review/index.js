@@ -11,7 +11,6 @@ const cx = classNames.bind(styles);
 function Review({ user, activeCmt, onInDeleteComment, listComments, scrollPosition, Tippy, productId }) {
     const [currentPage, setCurrentPage] = useState(0);
     const isLoading = useSelector((state)=>state.user.isLoading)
-    console.log("ActiveCmt",isLoading)
     const itemperPage = 4;
     const endPage = currentPage * itemperPage + itemperPage;
     const startPage = currentPage * itemperPage;
